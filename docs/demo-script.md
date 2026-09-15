@@ -29,10 +29,12 @@ Show: The `/demo` header and four KPI cards.
 
 Say:
 
-"Independent grocers often discover expiring inventory too late. A fixed discount
-can waste margin when demand is healthy, or fail to move stock when demand is weak.
-FreshSaver recommends a price per product, explains the decision, and connects the
-offer to shoppers who asked for that category."
+"UNEP reports 1.05 billion tonnes of food waste in 2022 across households, food
+service and retail. The economic toll of food loss and waste is roughly one trillion
+US dollars a year. But for a neighborhood grocer, that global problem appears as a
+local question: what should I discount, by how much, and when? FreshSaver recommends
+a price per product, explains the decision, and connects the approved offer to
+shoppers who asked for that category."
 
 Point to the `Synthetic data` badge.
 

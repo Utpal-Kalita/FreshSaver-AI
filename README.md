@@ -871,6 +871,7 @@ Then run the pricing agent. Production is configured with a 60-second model time
 - [`docs/demo-script.md`](docs/demo-script.md) - timed demo under five minutes
 - [`docs/model-card.md`](docs/model-card.md) - model behavior, data, evaluation, and limitations
 - [`docs/evidence/model-evaluation.md`](docs/evidence/model-evaluation.md) - synthetic evaluation report
+- [`docs/evidence/problem-sources.md`](docs/evidence/problem-sources.md) - authoritative UNEP, UN, and European Commission problem data
 - [`docs/architecture.md`](docs/architecture.md) - current and target architecture
 - [`docs/security.md`](docs/security.md) - trust boundaries and release gates
 - [`docs/judging-checklist.md`](docs/judging-checklist.md) - acceptance checklist

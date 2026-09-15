@@ -1,30 +1,35 @@
 # FreshSaver Hackathon Presentation
 
-## Slide 1: Protect Margin Before Food Becomes Waste
+## Slide 1: At Closing Time, 18 Cartons Still Have Value
 
-FreshSaver is a demand-aware markdown and marketplace workflow for independent
-grocers.
+Open with one illustrative store decision: 18 cartons of milk, four days remaining,
+and no obvious answer about whether to hold or discount.
 
 - Detect near-expiry inventory.
 - Recommend a price with an explanation.
 - Match opted-in shoppers by category.
 - Carry the deal through checkout and merchant fulfillment.
 
-Speaker note: Open with the tension between waste reduction and margin protection.
-The goal is not the deepest discount; it is a reviewable decision made in time.
+Speaker note: Make the global issue human. The goal is not the deepest discount; it
+is a reviewable decision made while the food still has value.
 
-## Slide 2: Fixed Rules Miss The Context
+## Slide 2: The Waste Is Global. The Decision Is Local.
 
-- The same expiry window can contain high-demand and low-demand products.
-- Discounting every item equally can surrender margin.
-- Waiting too long can leave stock unsold.
-- Small merchants need a workflow, not another disconnected forecast.
+- UNEP reports 1.05 billion tonnes of food waste in 2022 across households, food
+  service and retail, including inedible parts.
+- Retail represented 12% of the total.
+- Food loss and waste impose an estimated global economic toll of roughly US$1
+  trillion and generate 8–10% of annual global GHG emissions.
+- A separate European Commission study estimates that up to 10% of annual EU food
+  waste is linked to date marking.
 
-FreshSaver combines stock, expiry urgency, recent demand, pricing, customer
-activation, and orders in one loop.
+For an independent grocer, the global problem becomes one recurring shelf decision:
+hold, markdown, or lose the stock. FreshSaver combines stock, expiry urgency,
+recent demand, unit economics, customer activation, and orders in one loop.
 
-Speaker note: Do not quote unverified waste or revenue statistics. Frame this as a
-merchant decision problem demonstrated by the prototype.
+Speaker note: Keep scopes precise. Do not claim that 1.05 billion tonnes are caused
+by expiry dates. Cite UNEP Food Waste Index Report 2024 and the European Commission
+2018 date-marking study. Full links are in `docs/evidence/problem-sources.md`.
 
 ## Slide 3: One Loop For Merchant And Shopper
 

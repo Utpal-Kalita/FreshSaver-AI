@@ -13,6 +13,8 @@ const LIVE = 'https://freshsaver-ai.vercel.app'
 const DEMO = `${LIVE}/demo`
 const SOURCE = 'https://github.com/Utpal-Kalita/FreshSaver-AI'
 const MODEL = 'https://freshsaver-demand-model.onrender.com'
+const UNEP_SOURCE = 'https://www.unep.org/news-and-stories/press-release/world-squanders-over-1-billion-meals-day-un-report'
+const DATE_SOURCE = 'https://food.ec.europa.eu/food-safety/food-waste/eu-actions-against-food-waste/date-marking-and-food-waste-prevention_en'
 
 const C = {
   forest: '173D31',
@@ -171,11 +173,11 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
   circle(slide, 0.65, 0.5, 0.48, C.lime, 'F', C.forest, 16)
   text(slide, 'FRESHSAVER AI', 1.25, 0.52, 2.2, 0.4, { fontSize: 13, bold: true, color: C.white, charSpacing: 1.2 })
   pill(slide, 'AI BUILDERS HACKATHON 2026', 0.65, 1.35, 2.55, '244F42', C.lime)
-  text(slide, 'Protect margin\nbefore food\nbecomes waste.', 0.65, 1.92, 6.15, 2.62, { fontFace: DISPLAY, fontSize: 37, bold: true, color: C.white, breakLine: true, valign: 'top' })
-  text(slide, 'An explainable markdown copilot for independent grocers — from inventory risk to an approved customer offer.', 0.72, 4.82, 5.55, 0.78, { fontSize: 15, color: 'C6D7D0', valign: 'top' })
+  text(slide, 'At closing time,\n18 cartons still\nhave value.', 0.65, 1.92, 6.15, 2.62, { fontFace: DISPLAY, fontSize: 37, bold: true, color: C.white, breakLine: true, valign: 'top' })
+  text(slide, 'FreshSaver helps a grocer choose the right intervention before good food becomes waste.', 0.72, 4.82, 5.55, 0.78, { fontSize: 15, color: 'C6D7D0', valign: 'top' })
 
   rect(slide, 7.25, 1.25, 5.25, 4.85, C.paper, 0.28, null, { shadow: true })
-  text(slide, 'TODAY\'S DECISION', 7.65, 1.58, 2.2, 0.25, { fontSize: 9, bold: true, color: C.green, charSpacing: 1.5 })
+  text(slide, 'ILLUSTRATIVE STORE DECISION', 7.65, 1.58, 2.75, 0.25, { fontSize: 9, bold: true, color: C.green, charSpacing: 1.2 })
   text(slide, 'Organic whole milk', 7.65, 1.98, 3.3, 0.45, { fontFace: DISPLAY, fontSize: 22, bold: true })
   pill(slide, 'REVIEW', 11.05, 1.95, 0.92, C.orange2, C.orange)
   text(slide, '18 units  •  4 days remaining', 7.65, 2.45, 3.1, 0.28, { fontSize: 10, color: C.muted })
@@ -190,41 +192,45 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
   text(slide, 'OWNER APPROVAL REQUIRED', 7.87, 5.28, 3.95, 0.48, { fontSize: 10, bold: true, color: C.white, align: 'center', charSpacing: 0.8 })
   hyperlinkText(slide, 'LIVE DEMO  →', DEMO, 0.72, 6.25, 1.55, 0.3, { color: C.lime, fontSize: 10 })
   hyperlinkText(slide, 'SOURCE  →', SOURCE, 2.55, 6.25, 1.35, 0.3, { color: C.lime, fontSize: 10 })
-  footer(slide, 'Demand-aware markdowns for independent grocery stores', true)
-  note(slide, 'Open with the merchant tension: discount too early and lose margin; too late and lose the product. FreshSaver recommends a reviewable intervention before food becomes surplus.')
+  footer(slide, 'The global waste problem appears as a local pricing decision', true)
+  note(slide, 'Open as a story: It is closing time. A neighborhood grocer has 18 cartons of milk and four days left. Discount too deeply and margin disappears; wait too long and the product may be lost. FreshSaver turns that recurring shelf decision into a reviewable intervention.')
 }
 
 // Slide 2 — Problem
 {
   const slide = pptx.addSlide('LIGHT')
-  kicker(slide, 'The decision gap')
-  title(slide, 'Fixed markdown rules miss the context.', 'Two products can share an expiry date and still need opposite decisions.')
+  kicker(slide, 'Problem statement')
+  title(slide, 'The waste is global. The decision is local.', 'Every number below is sourced; not all global food waste is caused by expiry dates.')
 
-  rect(slide, 0.65, 2.3, 3.45, 3.55, C.orange2, 0.25)
-  circle(slide, 0.95, 2.62, 0.48, C.orange, '−', C.white, 20)
-  text(slide, 'Discount too early', 0.95, 3.28, 2.65, 0.42, { fontFace: DISPLAY, fontSize: 22, bold: true, color: C.orange })
-  text(slide, 'Fast-moving stock gets marked down even when full-price demand can clear it.', 0.95, 3.9, 2.7, 0.85, { fontSize: 13, color: '8D4A25', valign: 'top' })
-  text(slide, 'Result', 0.95, 5.05, 0.6, 0.22, { fontSize: 9, bold: true, color: C.orange, charSpacing: 1 })
-  text(slide, 'Margin surrendered', 0.95, 5.33, 2.4, 0.3, { fontSize: 16, bold: true, color: C.orange })
+  const globalStats = [
+    { x: 0.68, value: '1.05B', unit: 'tonnes', body: 'food waste generated at retail, food service and household level in 2022', fill: C.forest, color: C.lime },
+    { x: 4.36, value: '~$1T', unit: 'each year', body: 'estimated global economic toll of food loss and waste', fill: C.violet2, color: C.violet },
+    { x: 8.04, value: '8–10%', unit: 'of GHGs', body: 'annual global emissions attributed to food loss and waste', fill: C.orange2, color: C.orange },
+  ]
+  globalStats.forEach(item => {
+    rect(slide, item.x, 2.16, 3.25, 1.78, item.fill, 0.23, item.fill === C.forest ? null : C.line, { shadow: true })
+    text(slide, item.value, item.x + 0.24, 2.42, 1.75, 0.55, { fontFace: DISPLAY, fontSize: 31, bold: true, color: item.color })
+    text(slide, item.unit, item.x + 1.9, 2.64, 1.0, 0.24, { fontSize: 10, bold: true, color: item.fill === C.forest ? C.white : item.color, align: 'right' })
+    text(slide, item.body, item.x + 0.24, 3.12, 2.7, 0.58, { fontSize: 10.5, color: item.fill === C.forest ? 'CAD9D3' : C.muted, valign: 'top' })
+  })
 
-  rect(slide, 4.36, 2.05, 4.02, 4.05, C.forest, 0.28, null, { shadow: true })
-  pill(slide, 'THE FRESHSAVER WINDOW', 5.22, 2.45, 2.3, '2C574A', C.lime)
-  text(slide, 'Act while the\ndecision still matters.', 4.86, 3.08, 3.0, 1.15, { fontFace: DISPLAY, fontSize: 26, bold: true, color: C.white, align: 'center' })
-  text(slide, 'Stock + expiry + recent demand + unit economics', 4.88, 4.48, 2.98, 0.56, { fontSize: 12, color: 'BED1CA', align: 'center' })
-  rect(slide, 5.06, 5.25, 2.62, 0.42, C.lime, 0.14)
-  text(slide, 'REVIEWABLE ACTION', 5.18, 5.25, 2.38, 0.42, { fontSize: 9, bold: true, color: C.forest, align: 'center', charSpacing: 1 })
+  rect(slide, 0.68, 4.22, 5.85, 1.58, C.forest, 0.23)
+  text(slide, '12%', 1.0, 4.5, 1.32, 0.55, { fontFace: DISPLAY, fontSize: 31, bold: true, color: C.lime })
+  text(slide, 'of 2022 food waste occurred at retail.', 2.25, 4.53, 3.72, 0.32, { fontSize: 14, bold: true, color: C.white })
+  pill(slide, 'OUR WEDGE', 1.0, 5.16, 0.95, '2B5548', C.lime)
+  text(slide, 'Independent grocers making product-level decisions every day.', 2.15, 5.13, 3.78, 0.34, { fontSize: 10.5, color: 'C5D7D0' })
 
-  rect(slide, 8.65, 2.3, 3.95, 3.55, 'FDECEC', 0.25)
-  circle(slide, 8.95, 2.62, 0.48, C.red, '!', C.white, 14)
-  text(slide, 'Wait too long', 8.95, 3.28, 2.65, 0.42, { fontFace: DISPLAY, fontSize: 22, bold: true, color: C.red })
-  text(slide, 'Slow-moving stock reaches the end of its shelf life before the offer reaches a buyer.', 8.95, 3.9, 3.05, 0.85, { fontSize: 13, color: '8C4542', valign: 'top' })
-  text(slide, 'Result', 8.95, 5.05, 0.6, 0.22, { fontSize: 9, bold: true, color: C.red, charSpacing: 1 })
-  text(slide, 'Avoidable waste', 8.95, 5.33, 2.4, 0.3, { fontSize: 16, bold: true, color: C.red })
+  rect(slide, 6.78, 4.22, 5.83, 1.58, C.white, 0.23, C.line, { shadow: true })
+  text(slide, 'Up to 10%', 7.1, 4.48, 1.9, 0.55, { fontFace: DISPLAY, fontSize: 28, bold: true, color: C.red })
+  text(slide, 'of annual EU food waste is linked to date marking.', 8.95, 4.47, 3.1, 0.48, { fontSize: 13.5, bold: true, color: C.ink })
+  text(slide, 'European Commission estimate — not a global expiry-waste estimate.', 7.12, 5.23, 4.85, 0.24, { fontSize: 9, italic: true, color: C.muted })
 
-  pill(slide, 'TARGET USER', 0.72, 6.35, 1.05, C.green2, C.green)
-  text(slide, 'Independent grocers who already export inventory — no new shelf hardware required.', 1.95, 6.34, 8.85, 0.32, { fontSize: 11.5, bold: true, color: C.ink })
-  footer(slide, 'Problem solving & impact')
-  note(slide, 'Avoid unsupported global waste statistics. Explain the operating tension and why timing plus product-level demand context matters.')
+  rect(slide, 1.12, 6.1, 11.1, 0.43, C.lime, 0.14)
+  text(slide, 'For one grocer, this becomes a recurring question: hold, markdown, or lose the stock?', 1.38, 6.1, 10.58, 0.43, { fontSize: 12, bold: true, color: C.forest, align: 'center' })
+  hyperlinkText(slide, 'Source: UNEP Food Waste Index Report 2024 (2022 data)', UNEP_SOURCE, 0.72, 6.7, 5.65, 0.18, { fontSize: 7.5, color: C.muted })
+  hyperlinkText(slide, 'Source: European Commission date-marking study (2018)', DATE_SOURCE, 7.02, 6.7, 5.0, 0.18, { fontSize: 7.5, color: C.muted, align: 'right' })
+  footer(slide, 'Problem statement · sourced global scale and local wedge')
+  note(slide, 'Tell the story from global to local. UNEP reports 1.05 billion tonnes of food waste in 2022 across retail, food service and households; 12% occurred at retail. Food loss and waste cost roughly US$1 trillion and generate 8–10% of global greenhouse gas emissions. Separately, the European Commission estimates up to 10% of EU food waste is linked to date marking. Do not say all global food waste is caused by expiry dates. Bring the story back to the grocer choosing between holding, marking down, or losing stock.')
 }
 
 // Slide 3 — Closed loop
