@@ -1,0 +1,10 @@
+product_name,sku,price,mrp,expiry_date,category,image_url,stock_quantity,unit_cost,minimum_price,disposal_cost_per_unit
+Organic Whole Milk,DAIR-104,84,95,2026-09-18,Dairy,,18,45,55,2
+Greek Yogurt 400g,DAIR-512,65,75,2026-09-26,Dairy,,6,34,42,2
+Sourdough Loaf,BAKE-208,120,140,2026-09-23,Bakery,,12,65,80,3
+Blueberry Muffin 4pk,BAKE-814,95,110,2026-09-17,Bakery,,7,48,62,2
+Baby Spinach 200g,PROD-317,70,85,2026-09-17,Produce,,24,35,45,3
+Avocado Bag,PROD-622,150,180,2026-09-20,Produce,,14,82,100,4
+Chicken Breast 500g,MEAT-703,240,275,2026-09-16,Meat,,8,145,175,6
+Roasted Hummus,DELI-411,110,130,2026-09-19,Deli,,9,58,72,2
+Honeycrisp Apples 1kg,PROD-905,180,210,2026-10-18,Produce,,10,95,120,3
