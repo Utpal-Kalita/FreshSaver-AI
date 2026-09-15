@@ -12,7 +12,8 @@ Built for the **AI Builders Hackathon 2026**.
 - Live application: add deployment URL
 - Demo video: add video URL
 - Presentation deck: add deck URL
-- Source repository: `https://github.com/Utpal-Kalita/FreshSaverx`
+- Demand model API: `https://freshsaver-demand-model.onrender.com`
+- Source repository: `https://github.com/Utpal-Kalita/FreshSaver-AI`
 
 The `/demo` route is credential-free and uses clearly labeled synthetic data. It works without Supabase, Brevo, or any model API key.
 
