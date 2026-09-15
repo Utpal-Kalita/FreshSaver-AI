@@ -1,17 +1,19 @@
 # FreshSaver Hackathon Presentation
 
-## Slide 1: At Closing Time, 18 Cartons Still Have Value
+## Slide 1: Fresh Today. Expired Tomorrow. Wasted Forever.
 
-Open with one illustrative store decision: 18 cartons of milk, four days remaining,
-and no obvious answer about whether to hold or discount.
+Open with a public-domain photograph of supermarket food that has already lost its
+opportunity to be sold. FreshSaver gives the owner one more chance to act before
+inventory reaches that outcome.
 
 - Detect near-expiry inventory.
 - Recommend a price with an explanation.
 - Match opted-in shoppers by category.
 - Carry the deal through checkout and merchant fulfillment.
 
-Speaker note: Make the global issue human. The goal is not the deepest discount; it
-is a reviewable decision made while the food still has value.
+Speaker note: Make the global issue visual and human. The goal is not the deepest
+discount; it is a reviewable decision made while food still has value. Attribute
+the image to KVDP via Wikimedia Commons; it is public domain.
 
 ## Slide 2: The Waste Is Global. The Decision Is Local.
 

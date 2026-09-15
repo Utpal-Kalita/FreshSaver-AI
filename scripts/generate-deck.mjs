@@ -8,6 +8,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '..')
 const OUTPUT_DIR = path.join(ROOT, 'docs', 'deck')
 const OUTPUT = path.join(OUTPUT_DIR, 'FreshSaver-AI-Builders-Hackathon.pptx')
+const WASTE_IMAGE = path.join(ROOT, 'docs', 'deck', 'assets', 'supermarket-food-waste.jpg')
 
 const LIVE = 'https://freshsaver-ai.vercel.app'
 const DEMO = `${LIVE}/demo`
@@ -173,27 +174,26 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
   circle(slide, 0.65, 0.5, 0.48, C.lime, 'F', C.forest, 16)
   text(slide, 'FRESHSAVER AI', 1.25, 0.52, 2.2, 0.4, { fontSize: 13, bold: true, color: C.white, charSpacing: 1.2 })
   pill(slide, 'AI BUILDERS HACKATHON 2026', 0.65, 1.35, 2.55, '244F42', C.lime)
-  text(slide, 'At closing time,\n18 cartons still\nhave value.', 0.65, 1.92, 6.15, 2.62, { fontFace: DISPLAY, fontSize: 37, bold: true, color: C.white, breakLine: true, valign: 'top' })
-  text(slide, 'FreshSaver helps a grocer choose the right intervention before good food becomes waste.', 0.72, 4.82, 5.55, 0.78, { fontSize: 15, color: 'C6D7D0', valign: 'top' })
+  text(slide, 'Fresh today.\nExpired tomorrow.\nWasted forever.', 0.65, 1.92, 6.15, 2.62, { fontFace: DISPLAY, fontSize: 37, bold: true, color: C.white, breakLine: true, valign: 'top' })
+  text(slide, 'FreshSaver gives a grocer one more chance to protect margin and find a buyer before the expiry clock runs out.', 0.72, 4.82, 5.62, 0.78, { fontSize: 15, color: 'C6D7D0', valign: 'top' })
 
-  rect(slide, 7.25, 1.25, 5.25, 4.85, C.paper, 0.28, null, { shadow: true })
-  text(slide, 'ILLUSTRATIVE STORE DECISION', 7.65, 1.58, 2.75, 0.25, { fontSize: 9, bold: true, color: C.green, charSpacing: 1.2 })
-  text(slide, 'Organic whole milk', 7.65, 1.98, 3.3, 0.45, { fontFace: DISPLAY, fontSize: 22, bold: true })
-  pill(slide, 'REVIEW', 11.05, 1.95, 0.92, C.orange2, C.orange)
-  text(slide, '18 units  •  4 days remaining', 7.65, 2.45, 3.1, 0.28, { fontSize: 10, color: C.muted })
-  stat(slide, 7.65, 2.95, 1.3, 'CURRENT PACE', '6', C.green2, C.forest)
-  stat(slide, 9.08, 2.95, 1.3, 'LIKELY LEFT', '12', C.orange2, C.orange)
-  stat(slide, 10.51, 2.95, 1.55, 'SUGGESTED', '20%', C.forest, C.white)
-  rect(slide, 7.65, 4.25, 4.41, 0.85, C.white, 0.14, C.line)
-  text(slide, 'Recommended price', 7.88, 4.42, 1.65, 0.2, { fontSize: 9, color: C.muted })
-  text(slide, '₹67', 7.88, 4.65, 1.2, 0.3, { fontFace: DISPLAY, fontSize: 22, bold: true, color: C.forest })
-  text(slide, '₹84', 9.02, 4.7, 0.72, 0.2, { fontSize: 10, color: '98A8A2', strike: true })
-  rect(slide, 7.65, 5.28, 4.41, 0.48, C.green, 0.14)
-  text(slide, 'OWNER APPROVAL REQUIRED', 7.87, 5.28, 3.95, 0.48, { fontSize: 10, bold: true, color: C.white, align: 'center', charSpacing: 0.8 })
+  slide.addImage({
+    path: WASTE_IMAGE,
+    x: 7.18,
+    y: 1.15,
+    w: 5.45,
+    h: 5.22,
+    sizing: { type: 'cover', w: 5.45, h: 5.22 },
+    altText: 'Discarded food from a supermarket in a waste container',
+  })
+  rect(slide, 7.18, 4.78, 5.45, 1.59, C.forest2, 0, null, { transparency: 12 })
+  pill(slide, 'THE COST OF WAITING', 7.58, 5.08, 1.62, C.orange, C.white)
+  text(slide, 'What was inventory\nbecomes avoidable waste.', 7.58, 5.48, 3.72, 0.62, { fontFace: DISPLAY, fontSize: 19, bold: true, color: C.white, breakLine: true, valign: 'top' })
+  text(slide, 'Public-domain image: KVDP / Wikimedia Commons', 7.58, 6.14, 3.85, 0.16, { fontSize: 6.8, color: 'D3DDD9' })
   hyperlinkText(slide, 'LIVE DEMO  →', DEMO, 0.72, 6.25, 1.55, 0.3, { color: C.lime, fontSize: 10 })
   hyperlinkText(slide, 'SOURCE  →', SOURCE, 2.55, 6.25, 1.35, 0.3, { color: C.lime, fontSize: 10 })
   footer(slide, 'The global waste problem appears as a local pricing decision', true)
-  note(slide, 'Open as a story: It is closing time. A neighborhood grocer has 18 cartons of milk and four days left. Discount too deeply and margin disappears; wait too long and the product may be lost. FreshSaver turns that recurring shelf decision into a reviewable intervention.')
+  note(slide, 'Open as a story: food can move from sellable inventory to a supermarket waste container because the intervention came too late. FreshSaver gives the owner an evidence-based action while the product still has value. Image: “Supermarket dumpster” by KVDP, public domain, Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Supermarket_dumpster.jpg')
 }
 
 // Slide 2 — Problem
