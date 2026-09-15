@@ -24,6 +24,18 @@
         "scripts/render-mcp-wrapper.mjs"
       ],
       "enabled": true
+    },
+    "vercel": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "mcp-remote",
+        "https://mcp.vercel.com",
+        "--transport",
+        "http-only"
+      ],
+      "enabled": true
     }
   },
   "experimental": {

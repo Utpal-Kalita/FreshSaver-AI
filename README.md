@@ -8,8 +8,8 @@ Built for the **AI Builders Hackathon 2026**.
 
 ## Submission Links
 
-- Public judge demo: `/demo` on the deployed application
-- Live application: add deployment URL
+- Public judge demo: `https://freshsaver-ai.vercel.app/demo`
+- Live application: `https://freshsaver-ai.vercel.app`
 - Demo video: add video URL
 - Presentation deck: add deck URL
 - Demand model API: `https://freshsaver-demand-model.onrender.com`
