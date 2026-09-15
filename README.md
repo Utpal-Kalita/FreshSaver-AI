@@ -11,7 +11,7 @@ Built for the **AI Builders Hackathon 2026**.
 - Public judge demo: `https://freshsaver-ai.vercel.app/demo`
 - Live application: `https://freshsaver-ai.vercel.app`
 - Demo video: add video URL
-- Presentation deck: add deck URL
+- Presentation deck: [`FreshSaver-AI-Builders-Hackathon.pptx`](docs/deck/FreshSaver-AI-Builders-Hackathon.pptx)
 - Demand model API: `https://freshsaver-demand-model.onrender.com`
 - Source repository: `https://github.com/Utpal-Kalita/FreshSaver-AI`
 
