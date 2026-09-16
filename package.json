@@ -9,6 +9,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:demo-login": "node scripts/test-demo-login.mjs",
     "deck": "node scripts/generate-deck.mjs",
     "video-script": "node scripts/generate-video-script.mjs"
   },

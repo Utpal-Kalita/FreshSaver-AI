@@ -21,13 +21,20 @@ function credentialsFor(role: DemoRole) {
 }
 
 export async function POST(request: NextRequest) {
+  const isJsonRequest = request.headers.get('content-type')?.includes('application/json') ?? false
   if (!hasSupabaseConfig()) {
     return NextResponse.json({ error: 'Connected demo access is not configured yet' }, { status: 503 })
   }
 
   let body: { role?: string }
   try {
-    body = await request.json()
+    if (isJsonRequest) {
+      body = await request.json()
+    } else {
+      const formData = await request.formData()
+      const role = formData.get('role')
+      body = { role: typeof role === 'string' ? role : undefined }
+    }
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }
@@ -68,8 +75,9 @@ export async function POST(request: NextRequest) {
     }
   }
 
-  return NextResponse.json(
-    { redirectTo: credentials.redirectTo },
-    { headers: { 'Cache-Control': 'no-store' } },
-  )
+  if (!isJsonRequest) {
+    return NextResponse.redirect(new URL(credentials.redirectTo, request.url), 303)
+  }
+
+  return NextResponse.json({ redirectTo: credentials.redirectTo }, { headers: { 'Cache-Control': 'no-store' } })
 }
