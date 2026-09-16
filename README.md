@@ -876,7 +876,7 @@ Then run the pricing agent. Production is configured with a 60-second model time
 
 ## Evidence And Submission Assets
 
-- [`docs/deck/FreshSaver-AI-Builders-Hackathon.pptx`](docs/deck/FreshSaver-AI-Builders-Hackathon.pptx) - editable 10-slide presentation
+- [`docs/deck/FreshSaver-AI-Builders-Hackathon.pptx`](docs/deck/FreshSaver-AI-Builders-Hackathon.pptx) - editable 9-slide presentation
 - [`docs/video/FreshSaver-5-Minute-Demo-Video-Script.pdf`](docs/video/FreshSaver-5-Minute-Demo-Video-Script.pdf) - timed screen-by-screen recording guide
 - [`docs/video/FreshSaver-5-Minute-Demo-Video-Script.md`](docs/video/FreshSaver-5-Minute-Demo-Video-Script.md) - editable narration source
 - [`docs/demo-script.md`](docs/demo-script.md) - timed demo under five minutes

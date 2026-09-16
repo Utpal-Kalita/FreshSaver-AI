@@ -4,7 +4,7 @@ The editable presentation is:
 
 - [`FreshSaver-AI-Builders-Hackathon.pptx`](FreshSaver-AI-Builders-Hackathon.pptx)
 
-It contains exactly 10 widescreen slides, speaker notes, synthetic-data caveats,
+It contains exactly 9 widescreen slides, speaker notes, synthetic-data caveats,
 and clickable links to the live product, judge demo, model API, and public source.
 
 Regenerate it from the project root with:

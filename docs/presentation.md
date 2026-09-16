@@ -1,19 +1,16 @@
 # FreshSaver Hackathon Presentation
 
+The final deck contains **9 slides**, below the Devpost maximum of 10.
+
 ## Slide 1: Fresh Today. Expired Tomorrow. Wasted Forever.
 
-Open with a public-domain photograph of supermarket food that has already lost its
-opportunity to be sold. FreshSaver gives the owner one more chance to act before
-inventory reaches that outcome.
+- Open with a public-domain photograph of discarded supermarket food.
+- Introduce FreshSaver as the intervention before inventory reaches that outcome.
+- Link to the live product and source.
 
-- Detect near-expiry inventory.
-- Recommend a price with an explanation.
-- Match opted-in shoppers by category.
-- Carry the deal through checkout and merchant fulfillment.
-
-Speaker note: Make the global issue visual and human. The goal is not the deepest
-discount; it is a reviewable decision made while food still has value. Attribute
-the image to KVDP via Wikimedia Commons; it is public domain.
+Speaker note: Food can move from sellable inventory to waste because the decision
+came too late. FreshSaver gives the owner an evidence-based action while the product
+still has value.
 
 ## Slide 2: The Waste Is Global. The Decision Is Local.
 
@@ -25,152 +22,170 @@ the image to KVDP via Wikimedia Commons; it is public domain.
 - A separate European Commission study estimates that up to 10% of annual EU food
   waste is linked to date marking.
 
-For an independent grocer, the global problem becomes one recurring shelf decision:
-hold, markdown, or lose the stock. FreshSaver combines stock, expiry urgency,
-recent demand, unit economics, customer activation, and orders in one loop.
-
 Speaker note: Keep scopes precise. Do not claim that 1.05 billion tonnes are caused
-by expiry dates. Cite UNEP Food Waste Index Report 2024 and the European Commission
-2018 date-marking study. Full links are in `docs/evidence/problem-sources.md`.
+by expiry dates. Bring the global problem back to the local question: hold, markdown,
+or lose the stock.
 
-## Slide 3: One Loop For Merchant And Shopper
+## Slide 3: From Expiring Stock To A Customer's Inbox
 
-1. Merchant imports store inventory from CSV.
-2. Manual or scheduled scan builds a per-product demand estimate.
-3. XGBoost predicts sell-through for every eligible markdown candidate.
-4. The constrained optimizer proposes a price and Gemini generates a grounded explanation and campaign.
-5. The merchant approves or rejects the pending recommendation.
-6. Approved products match store-specific opted-in customer categories for email.
-7. Customers browse deals, use mock checkout, and create store-scoped orders.
-8. Merchant accepts, completes, or cancels valid order transitions.
+The solution flow is:
 
-Speaker note: CSVs and scans are tagged with the merchant's store. Customer prices
-are re-read from the database when an order is created.
+1. Store imports inventory, expiry and unit economics.
+2. XGBoost predicts sell-through for every candidate price.
+3. The deterministic optimizer applies price floors, expiry blocks and overrides.
+4. Gemini explains the fixed evidence and creates campaign plus recipe copy.
+5. The store owner approves or rejects the pending recommendation.
+6. FreshSaver matches store-specific, category-specific opt-ins.
+7. Brevo sends the approved campaign when configured.
+8. The shopper opens the deal, reserves or orders, and the outcome is recorded.
 
-## Slide 4: Credential-Free Judge Demo
+Speaker note: A prediction alone does not rescue food. FreshSaver connects AI to
+owner authority, customer activation and an outcome ledger.
 
-Route: `/demo`
+## Slide 4: Target Users And Business Model
 
-- Uses the real `freshsaver-demand-v1` recommender.
-- Uses only synthetic products, demand inputs, shopper preferences, and events.
-- Runs without Supabase, Brevo, or login credentials.
-- Shows candidate prices, an explanation, forecast evidence, approval, matching,
-  and simulated redemption.
+### Retailers And Grocery Store Owners
 
-Important: Campaign sales on this page are attributed synthetic demo value. They
-are not claimed as incremental sales or measured business impact.
+- Paying customer
+- Protect margin
+- Reduce manual expiry checks
+- Reach opted-in local demand
 
-Speaker note: Approve Organic whole milk, show the matched count, then simulate two
-redemptions. Keep the `Synthetic data` badge visible.
+### Store Managers And Staff
 
-## Slide 5: Two AIs. Two Jobs. One Controlled Decision.
+- Daily operators
+- Review recommendations
+- Approve or reject
+- Track orders and outcomes
 
-### AI 1: XGBoost — Prediction
+### Students And Budget-Conscious Shoppers
 
-- What: predicts low, expected, and high sell-through for every candidate price.
-- Why: stock, price, expiry, category and sales velocity form a nonlinear tabular
-  prediction problem, which is where gradient-boosted trees are strong.
+- Use the app free
+- Discover affordable local deals
+- Opt into relevant store alerts
+- Receive recipe ideas and pickup options
 
-### Deterministic Optimizer — Not AI
+Proposed model: customers use FreshSaver free; stores pay 10% of attributable
+campaign sales with no setup fee. Attribution is not presented as causal lift.
+
+## Slide 5: Product Features
+
+### Owner Portal
+
+- Dashboard and expiry KPIs
+- Products, manual entry and CSV import
+- Store-specific customer database
+- Pricing Log and streamed agent progress
+- Orders, email logs and recommendation history
+
+### Decision Intelligence
+
+- Candidate prices and prediction ranges
+- Clearance probability and expected margin
+- Top XGBoost factors and model provenance
+- Recipe and campaign preview
+- Approve, reject and override controls
+
+### Shopper Marketplace
+
+- Deals, stores, search, filters and maps
+- Store/category opt-in notifications
+- Free customer accounts
+- Single-store cart and mock checkout
+- Pickup context and order history
+
+## Slide 6: AI Technologies Used
+
+### AI 1: XGBoost - Prediction
+
+- What: predicts low, expected and high sell-through for every candidate price.
+- Why: grocery demand is nonlinear tabular data involving stock, price, expiry,
+  category and sales velocity.
+
+### Deterministic Optimizer - Not AI
 
 - What: selects the strongest eligible contribution score.
-- Why: price floors, expiry blocks, manual overrides and discount bounds must be
-  deterministic and testable.
+- Why: minimum price, expiry, override and discount constraints must remain testable.
 
-### AI 2: Gemini — Language
+### AI 2: Gemini - Language
 
-- What: translates fixed model evidence into a manager explanation, campaign copy,
-  and a product-specific recipe idea.
+- What: creates the manager explanation, email copy and a product-specific recipe.
 - Why: explanation and communication are language tasks. Gemini never calculates or
-  changes the selected price.
+  changes the price, and customer PII is never sent to Gemini.
 
-### Store Owner — Human Authority
+### Store Owner - Human Authority
 
-- What: approves or rejects the pending recommendation.
+- What: approves or rejects the recommendation.
 - Why: pricing accountability remains with the merchant.
 
-Speaker note: Say the role split explicitly: XGBoost predicts, policy constrains,
-Gemini communicates, and the owner decides. XGBoost is live; Gemini is optional and
-uses a safe template fallback when unavailable. Synthetic model results demonstrate
-behavior, not real-world lift.
+Speaker note: XGBoost predicts, policy constrains, Gemini communicates, and the owner
+decides. XGBoost is live. Gemini is optional and has a deterministic template and
+recipe fallback.
 
-## Slide 6: Every Recommendation Leaves Evidence
+## Slide 7: Technical Architecture
 
-Migration `006_demand_aware_markdowns.sql` adds:
+- Next.js 16 and React 19 customer and owner experiences on Vercel
+- Authenticated scan, recommendation and approval APIs
+- Supabase Auth, PostgreSQL, RLS and Storage
+- XGBoost FastAPI service in Docker on Render
+- Deterministic TypeScript optimizer
+- Gemini structured generation with safe template fallback
+- Brevo email adapter
+- Store-specific consent matching
+- Vercel Cron for scheduled scans
+- Stored recommendation and approval audit trail
 
-- Recommended price and discount.
-- Reason JSON, reason codes, confidence, version, and timestamp.
-- Product-level scan evidence and store-scoped audit fields.
-- Append-only price history helper.
-- Stock decrement helper restricted to the service role.
+Speaker note: `store_id` is the tenant key. Service-role access and provider secrets
+remain server-side. The browser is never treated as an authorization boundary.
 
-Operational guardrails:
+## Slide 8: Impact And Value Proposition
 
-- Passed expiry blocks automated sale.
-- Manager price override wins.
-- Healthy forecast demand can hold price.
-- Sparse data is labeled instead of disguised as learned history.
-- Markdown recommendations require owner approval before publication or email.
-- Every audit record identifies XGBoost versus fallback and Gemini versus template.
+### For Stores
 
-Speaker note: Show a scan detail page if the connected environment is available.
+- Earlier intervention before surplus
+- Margin-aware pricing instead of blanket discounts
+- Less manual review
+- Auditable owner-controlled decisions
 
-## Slide 7: Activation Meets The Marketplace
+### For Students And Budget-Conscious Shoppers
 
-- Public customer pages expose active, non-expired products and stores.
-- Opted-in shoppers are matched against product categories.
-- Brevo sends product and store context when configured.
-- Email logs deduplicate by customer, SKU, and tier.
-- Cart and checkout lead to customer order history.
-- Store admins see and manage orders for their assigned store.
+- Free marketplace access
+- Affordable local food
+- Relevant store and category alerts
+- Recipe ideas for approved surplus products
 
-Speaker note: Checkout is explicitly a mock payment experience. No card processor
-or real charge is part of the MVP.
+### For The Food System
 
-## Slide 8: Built As A Store-Scoped Web System
+- Another chance to sell usable inventory
+- Measurable sell-through and outcome events
+- Future donation and transfer routing
 
-- Next.js 16 App Router and React 19.
-- Supabase Auth, PostgreSQL, RLS, and CSV object storage.
-- Service-role access confined to server modules and route handlers.
-- Vercel cron calls a secret-protected endpoint every 48 hours.
-- Store-admin authorization scopes import, scan execution, scan detail, products,
-  and order management.
-- `/demo` is an isolated client-side synthetic path.
+Pilot metrics: kilograms or tonnes diverted, sell-through before expiry, gross
+margin, shopper savings and pickup rate. No measured waste-reduction claim is made
+before a controlled pilot.
 
-Speaker note: The browser is untrusted. Public Supabase values can be visible, but
-the service role, cron secret, and email key must remain server-only.
+## Slide 9: Future Roadmap
 
-## Slide 9: What Is Proven And What Is Not
+1. Live MVP: owner portal, shopper marketplace, XGBoost and approval workflow.
+2. Pilot with 3–5 independent retailers in shadow mode.
+3. Measure forecasts, waste, margin, overrides and shopper savings.
+4. Learn store/category price elasticity from interventions.
+5. Add transactional reservations, real payments and POS feeds.
+6. Integrate electronic shelf labels.
+7. Add donation routing, store transfers and multi-location policies.
 
-Proven in the current codebase:
+Close: FreshSaver is live today. The next milestone is a controlled merchant pilot,
+not blind automation.
 
-- Unit tests cover forecast fallback/history behavior, XGBoost candidate integration,
-  Gemini structured output/fallback, markdown guardrails, CSV validation, and dates.
-- `npm test` passes 20 tests across seven files as checked on 2026-09-16.
-- `npm run typecheck` passes as checked on 2026-09-15.
-- The demo labels synthetic data and non-incremental campaign sales.
+## Devpost Requirement Coverage
 
-Not yet proven:
-
-- Forecast quality on representative real-store data.
-- Calibration of confidence or category elasticity.
-- Incremental sales, margin lift, or waste reduction.
-- Production load, deliverability, accessibility, or security targets.
-- Atomic order creation and inventory reservation under concurrency.
-
-Speaker note: This is an honest MVP boundary, not a weakness hidden behind metrics.
-
-## Slide 10: Pilot, Measure, Then Scale
-
-Pilot plan:
-
-1. Shadow recommendations without changing prices.
-2. Compare forecasts with realized accepted and completed orders.
-3. Require manager approval and capture overrides with reasons.
-4. Randomize eligible products or stores where operationally safe.
-5. Measure waste units, gross margin, sell-through, opt-outs, and complaints.
-6. Add transactional order and stock reservation before real payment processing.
-
-Close: FreshSaver already connects an explainable markdown decision to the people
-and workflow that can act on it. The next claim will come from a controlled pilot,
-not from synthetic campaign totals.
+| Requirement | Slide |
+|---|---:|
+| Problem Statement | 2 |
+| Solution Overview | 3 |
+| Target Users | 4 |
+| Product Features | 5 |
+| AI Technologies Used | 6 |
+| Technical Architecture | 7 |
+| Impact And Value Proposition | 8 |
+| Future Roadmap | 9 |

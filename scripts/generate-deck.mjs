@@ -13,7 +13,6 @@ const WASTE_IMAGE = path.join(ROOT, 'docs', 'deck', 'assets', 'supermarket-food-
 const LIVE = 'https://freshsaver-ai.vercel.app'
 const DEMO = `${LIVE}/demo`
 const SOURCE = 'https://github.com/Utpal-Kalita/FreshSaver-AI'
-const MODEL = 'https://freshsaver-demand-model.onrender.com'
 const UNEP_SOURCE = 'https://www.unep.org/news-and-stories/press-release/world-squanders-over-1-billion-meals-day-un-report'
 const DATE_SOURCE = 'https://food.ec.europa.eu/food-safety/food-waste/eu-actions-against-food-waste/date-marking-and-food-waste-prevention_en'
 
@@ -138,12 +137,6 @@ function footer(slide, label, dark = false) {
   text(slide, label, 1.72, 7.08, 7.4, 0.16, { fontSize: 7.5, color: dark ? '90A99F' : '82938D' })
 }
 
-function stat(slide, x, y, w, label, value, fill, valueColor = C.ink) {
-  rect(slide, x, y, w, 1.05, fill, 0.18)
-  text(slide, value, x + 0.18, y + 0.14, w - 0.36, 0.42, { fontFace: DISPLAY, fontSize: 23, bold: true, color: valueColor })
-  text(slide, label, x + 0.18, y + 0.62, w - 0.36, 0.24, { fontSize: 9, bold: true, color: valueColor, transparency: 25 })
-}
-
 function note(slide, noteText) {
   slide.addNotes(noteText)
 }
@@ -233,94 +226,103 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
   note(slide, 'Tell the story from global to local. UNEP reports 1.05 billion tonnes of food waste in 2022 across retail, food service and households; 12% occurred at retail. Food loss and waste cost roughly US$1 trillion and generate 8–10% of global greenhouse gas emissions. Separately, the European Commission estimates up to 10% of EU food waste is linked to date marking. Do not say all global food waste is caused by expiry dates. Bring the story back to the grocer choosing between holding, marking down, or losing stock.')
 }
 
-// Slide 3 — Closed loop
+// Slide 3 — Solution overview
 {
   const slide = pptx.addSlide('DARK')
-  kicker(slide, 'The product loop', true)
-  title(slide, 'One decision loop. Two users. One outcome.', 'FreshSaver does not stop at a forecast — it carries the decision to a shopper and records what happened.', true)
+  kicker(slide, 'Solution overview', true)
+  title(slide, 'From expiring stock to a customer’s inbox.', 'Both AI systems are part of one owner-controlled workflow, ending in an approved offer and measurable outcome.', true)
   const steps = [
-    ['01', 'IMPORT', 'CSV inventory', C.green2, C.forest],
-    ['02', 'PREDICT', 'Sell-through by price', C.violet2, C.violet],
-    ['03', 'OPTIMIZE', 'Margin-aware candidate', C.orange2, C.orange],
-    ['04', 'APPROVE', 'Owner stays in control', 'E4F7E9', C.green],
-    ['05', 'ACTIVATE', 'Store opt-in matching', 'E9F2FF', '2F6CB3'],
-    ['06', 'MEASURE', 'Order + outcome ledger', C.lime, C.forest],
+    ['01', 'INVENTORY', 'CSV + expiry + cost', C.green2, C.forest],
+    ['02', 'XGBOOST', 'Predict every price', C.violet2, C.violet],
+    ['03', 'OPTIMIZER', 'Apply hard rules', C.orange2, C.orange],
+    ['04', 'GEMINI', 'Explain + recipe', 'E1F7ED', C.green],
+    ['05', 'OWNER', 'Approve or reject', C.lime, C.forest],
+    ['06', 'MATCH', 'Store + category opt-in', 'E9F2FF', '2F6CB3'],
+    ['07', 'EMAIL', 'Brevo sends campaign', 'FDECEC', C.red],
   ]
   steps.forEach(([num, label, body, fill, color], index) => {
-    const x = 0.62 + index * 2.1
-    rect(slide, x, 2.58, 1.78, 2.4, fill, 0.23, null, { shadow: index === 2 || index === 3 })
-    text(slide, num, x + 0.16, 2.75, 0.48, 0.25, { fontSize: 9, bold: true, color, charSpacing: 1 })
-    circle(slide, x + 0.16, 3.18, 0.52, color, label.slice(0, 1), fill, 15)
-    text(slide, label, x + 0.16, 3.9, 1.42, 0.28, { fontSize: 11, bold: true, color, charSpacing: 0.8 })
-    text(slide, body, x + 0.16, 4.28, 1.4, 0.46, { fontSize: 10.5, color, valign: 'top' })
-    if (index < steps.length - 1) arrow(slide, x + 1.84, 3.55, C.lime)
+    const x = 0.42 + index * 1.82
+    rect(slide, x, 2.45, 1.52, 2.58, fill, 0.21, null, { shadow: index === 1 || index === 3 })
+    text(slide, num, x + 0.14, 2.64, 0.4, 0.2, { fontSize: 8.5, bold: true, color, charSpacing: 1 })
+    circle(slide, x + 0.14, 3.05, 0.48, color, label.slice(0, 1), fill, 13)
+    text(slide, label, x + 0.14, 3.75, 1.22, 0.24, { fontSize: 9.5, bold: true, color, charSpacing: 0.6 })
+    text(slide, body, x + 0.14, 4.12, 1.2, 0.54, { fontSize: 9.5, color, valign: 'top' })
+    if (index < steps.length - 1) arrow(slide, x + 1.57, 3.56, C.lime)
   })
-  rect(slide, 1.15, 5.55, 11.0, 0.72, '244E42', 0.18)
-  text(slide, 'MERCHANT', 1.45, 5.77, 1.05, 0.22, { fontSize: 9, bold: true, color: C.lime, charSpacing: 1.2 })
-  text(slide, 'Detect risk  →  approve action', 2.45, 5.72, 2.75, 0.3, { fontSize: 12, bold: true, color: C.white })
-  line(slide, 6.28, 5.7, 0, 0.38, '56786D', 1)
-  text(slide, 'SHOPPER', 6.62, 5.77, 1.05, 0.22, { fontSize: 9, bold: true, color: C.lime, charSpacing: 1.2 })
-  text(slide, 'Discover deal  →  reserve pickup', 7.65, 5.72, 3.15, 0.3, { fontSize: 12, bold: true, color: C.white })
-  footer(slide, 'End-to-end workflow', true)
-  note(slide, 'Walk left to right. Emphasize that a prediction alone does not rescue food. The value is the closed loop from inventory to owner action to shopper pickup.')
+  rect(slide, 1.05, 5.5, 11.15, 0.78, '244E42', 0.18)
+  text(slide, 'APPROVED CAMPAIGN', 1.35, 5.75, 1.75, 0.2, { fontSize: 8.5, bold: true, color: C.lime, charSpacing: 1 })
+  text(slide, 'Personalized deal + recipe idea → customer deal page → cart / pickup → order and outcome ledger', 3.1, 5.68, 8.55, 0.34, { fontSize: 11.5, bold: true, color: C.white })
+  pill(slide, 'AI #1: PREDICT', 1.0, 6.55, 1.5, C.violet, C.white)
+  pill(slide, 'AI #2: COMMUNICATE', 2.68, 6.55, 1.82, C.green, C.white)
+  pill(slide, 'HUMAN APPROVAL BEFORE SEND', 4.68, 6.55, 2.55, C.lime, C.forest)
+  footer(slide, 'Inventory → AI prediction → guarded decision → email → shopper')
+  note(slide, 'Walk left to right. XGBoost predicts sell-through for every candidate. The optimizer applies deterministic constraints. Gemini explains the fixed evidence and creates campaign and recipe copy. Nothing goes live until owner approval. Matching then selects opted-in customers and Brevo sends the campaign when configured.')
 }
 
-// Slide 4 — Product experience
+// Slide 4 — Target users and business model
 {
   const slide = pptx.addSlide('LIGHT')
-  kicker(slide, 'Product experience')
-  title(slide, 'Built for the aisle and the customer’s pocket.', 'A focused owner workspace feeds a simple customer marketplace.')
-
-  rect(slide, 0.62, 2.16, 7.08, 4.28, C.white, 0.26, C.line, { shadow: true })
-  rect(slide, 0.62, 2.16, 1.38, 4.28, C.forest, 0.26)
-  circle(slide, 0.93, 2.48, 0.42, C.lime, 'F', C.forest, 13)
-  text(slide, 'OWNER', 1.39, 2.52, 0.48, 0.2, { fontSize: 8, bold: true, color: C.white, charSpacing: 1 })
-  ;['Dashboard', 'Products', 'Customers', 'Pricing log'].forEach((item, i) => {
-    const active = i === 3
-    rect(slide, 0.8, 3.12 + i * 0.5, 1.02, 0.34, active ? C.lime : '285043', 0.09)
-    text(slide, item, 0.86, 3.12 + i * 0.5, 0.9, 0.34, { fontSize: 8, bold: active, color: active ? C.forest : 'BDD0C8' })
-  })
-  text(slide, 'Pending AI recommendations', 2.35, 2.52, 3.15, 0.35, { fontFace: DISPLAY, fontSize: 20, bold: true })
-  pill(slide, '3 AWAITING REVIEW', 5.68, 2.52, 1.52, C.violet2, C.violet)
-  rect(slide, 2.32, 3.18, 4.92, 2.45, C.forest, 0.2)
-  text(slide, 'ORGANIC WHOLE MILK', 2.62, 3.48, 2.5, 0.23, { fontSize: 9, bold: true, color: C.lime, charSpacing: 1 })
-  text(slide, '15% off', 5.92, 3.43, 0.95, 0.32, { fontSize: 16, bold: true, color: C.lime, align: 'right' })
-  stat(slide, 2.62, 3.97, 1.28, 'NEW PRICE', '₹71', '2B5548', C.white)
-  stat(slide, 4.03, 3.97, 1.28, 'PREDICTED', '0–6', '2B5548', C.white)
-  stat(slide, 5.44, 3.97, 1.28, 'MARGIN', '₹37', '2B5548', C.white)
-  pill(slide, 'XGBOOST', 2.62, 5.22, 0.88, C.violet, C.white)
-  pill(slide, 'OWNER APPROVAL', 5.03, 5.22, 1.7, C.lime, C.forest)
-
-  rect(slide, 8.0, 2.16, 4.72, 4.28, C.white, 0.26, C.line, { shadow: true })
-  text(slide, 'CUSTOMER MARKETPLACE', 8.35, 2.5, 2.9, 0.25, { fontSize: 9, bold: true, color: C.green, charSpacing: 1.3 })
-  text(slide, 'Food worth saving today', 8.35, 2.9, 3.65, 0.4, { fontFace: DISPLAY, fontSize: 21, bold: true })
-  const dealCards = [
-    ['Milk', '15% OFF', '₹71', C.green2],
-    ['Spinach', '25% OFF', '₹53', C.orange2],
+  kicker(slide, 'Target users')
+  title(slide, 'Stores pay. Shoppers save. Food gets another chance.', 'FreshSaver is designed as B2B2C software: decision intelligence for retailers and a free marketplace for customers.')
+  const users = [
+    { x: 0.68, role: 'PAYING CUSTOMER', heading: 'Retailers & grocery owners', body: 'Need earlier expiry visibility, margin-aware pricing, and a workflow that starts with the CSV they already have.', points: ['Protect margin', 'Reduce manual shelf checks', 'Reach opted-in local demand'], fill: C.forest, color: C.lime },
+    { x: 4.55, role: 'DAILY OPERATOR', heading: 'Store managers & staff', body: 'Need a ranked queue, clear evidence, and final control over every price and customer campaign.', points: ['Review recommendations', 'Approve or reject', 'Track orders and outcomes'], fill: C.white, color: C.green },
+    { x: 8.42, role: 'FREE USER', heading: 'Students & budget shoppers', body: 'Want affordable, good local food without paying to use the app.', points: ['Discover nearby deals', 'Opt into relevant alerts', 'Get recipe ideas and pickup'], fill: C.orange2, color: C.orange },
   ]
-  dealCards.forEach(([name, deal, price, fill], i) => {
-    const x = 8.35 + i * 1.92
-    rect(slide, x, 3.58, 1.68, 1.95, fill, 0.2)
-    circle(slide, x + 0.57, 3.78, 0.54, C.white, name.slice(0, 1), C.forest, 16)
-    text(slide, deal, x + 0.18, 4.5, 1.32, 0.22, { fontSize: 8, bold: true, color: i ? C.orange : C.green, align: 'center' })
-    text(slide, name, x + 0.18, 4.83, 1.32, 0.22, { fontSize: 11, bold: true, align: 'center' })
-    text(slide, price, x + 0.18, 5.14, 1.32, 0.25, { fontSize: 15, bold: true, color: C.forest, align: 'center' })
+  users.forEach((user, index) => {
+    rect(slide, user.x, 2.2, 3.42, 3.62, user.fill, 0.24, user.fill === C.white ? C.line : null, { shadow: true })
+    pill(slide, user.role, user.x + 0.25, 2.5, index === 2 ? 1.05 : 1.35, user.fill === C.forest ? '2B5548' : C.white, user.color, user.fill === C.white ? C.line : null)
+    circle(slide, user.x + 0.25, 3.06, 0.52, user.color, `${index + 1}`, index === 0 ? C.forest : C.white, 13)
+    text(slide, user.heading, user.x + 0.25, 3.72, 2.9, 0.55, { fontFace: DISPLAY, fontSize: 19, bold: true, color: user.fill === C.forest ? C.white : C.ink })
+    text(slide, user.body, user.x + 0.25, 4.4, 2.85, 0.66, { fontSize: 10.3, color: user.fill === C.forest ? 'C6D7D0' : C.muted, valign: 'top' })
+    user.points.forEach((point, i) => {
+      circle(slide, user.x + 0.28, 5.18 + i * 0.29, 0.14, user.color, '✓', index === 0 ? C.forest : C.white, 5.5)
+      text(slide, point, user.x + 0.53, 5.13 + i * 0.29, 2.45, 0.22, { fontSize: 9.2, bold: true, color: user.fill === C.forest ? C.white : C.ink })
+    })
   })
-  rect(slide, 8.35, 5.78, 3.6, 0.36, C.green, 0.12)
-  text(slide, 'RESERVE FOR LOCAL PICKUP', 8.52, 5.78, 3.25, 0.36, { fontSize: 9, bold: true, color: C.white, align: 'center', charSpacing: 0.8 })
-  footer(slide, 'User experience & design')
-  note(slide, 'Show the two personas. Owners get four focused pages; shoppers see only approved active deals and can reserve for pickup.')
+  rect(slide, 1.12, 6.18, 11.05, 0.48, C.lime, 0.14)
+  text(slide, 'BUSINESS MODEL', 1.38, 6.31, 1.4, 0.18, { fontSize: 8.5, bold: true, color: C.forest, charSpacing: 1 })
+  text(slide, 'Customers use FreshSaver free  •  stores pay a proposed 10% of attributable campaign sales  •  no setup fee', 2.85, 6.25, 8.85, 0.28, { fontSize: 11.2, bold: true, color: C.forest })
+  footer(slide, 'Target users and value exchange')
+  note(slide, 'Name the users explicitly. Independent retailers and grocery owners are the paying customer. Store staff operate the workflow. Students and budget-conscious shoppers use the marketplace for free. The proposed model is 10% of attributable campaign sales, not a claim of incremental lift.')
 }
 
-// Slide 5 — AI architecture
+// Slide 5 — Product features
+{
+  const slide = pptx.addSlide('LIGHT')
+  kicker(slide, 'Product features')
+  title(slide, 'Everything needed to move from risk to pickup.', 'Three connected surfaces: owner operations, explainable decision intelligence, and a free shopper marketplace.')
+  const columns = [
+    { x: 0.68, tag: 'OWNER PORTAL', heading: 'Operate the store', color: C.green, fill: C.green2, items: ['Dashboard and expiry KPIs', 'Manual products + CSV import', 'Store-specific subscribers', 'Pricing Log + run history', 'Orders and email logs'] },
+    { x: 4.55, tag: 'DECISION ENGINE', heading: 'Review the evidence', color: C.violet, fill: C.violet2, items: ['Candidate prices and ranges', 'Margin + clearance probability', 'Top XGBoost factors', 'Recipe and campaign preview', 'Approve, reject, or override'] },
+    { x: 8.42, tag: 'SHOPPER APP', heading: 'Find affordable food', color: C.orange, fill: C.orange2, items: ['Deals, stores, search, filters', 'Maps and local store pages', 'Store/category opt-in alerts', 'Single-store cart + pickup', 'Account and order history'] },
+  ]
+  columns.forEach((column, index) => {
+    rect(slide, column.x, 2.18, 3.42, 3.95, C.white, 0.24, C.line, { shadow: true })
+    rect(slide, column.x, 2.18, 3.42, 0.72, column.fill, 0.24)
+    circle(slide, column.x + 0.24, 2.34, 0.4, column.color, `${index + 1}`, C.white, 10)
+    text(slide, column.tag, column.x + 0.78, 2.41, 2.2, 0.2, { fontSize: 8.2, bold: true, color: column.color, charSpacing: 1 })
+    text(slide, column.heading, column.x + 0.25, 3.18, 2.9, 0.4, { fontFace: DISPLAY, fontSize: 19, bold: true })
+    column.items.forEach((item, i) => {
+      circle(slide, column.x + 0.28, 3.82 + i * 0.45, 0.18, column.color, '✓', C.white, 6)
+      text(slide, item, column.x + 0.58, 3.76 + i * 0.45, 2.5, 0.29, { fontSize: 10.2, bold: true })
+    })
+  })
+  pill(slide, 'CREDENTIAL-FREE /DEMO', 0.72, 6.48, 1.92, C.forest, C.lime)
+  text(slide, 'Synthetic decision, approval, matching and redemption story works even if external services fail.', 2.88, 6.46, 8.65, 0.3, { fontSize: 10.8, bold: true, color: C.muted })
+  footer(slide, 'Key features and functionality')
+  note(slide, 'Keep this feature slide concrete. Four owner pages, explainable pricing evidence, and the free shopper marketplace are the core product. Mention the offline judge demo as the reliable fallback.')
+}
+
+// Slide 6 — AI technologies
 {
   const slide = pptx.addSlide('DARK')
-  kicker(slide, 'What AI we use — and why', true)
+  kicker(slide, 'AI technologies used — what and why', true)
   title(slide, 'Two AIs. Two jobs. One controlled decision.', 'XGBoost handles numerical uncertainty. Gemini handles language. Neither gets unchecked authority.', true)
   const layers = [
     { x: 0.68, tag: 'AI #1 · PREDICTION', heading: 'XGBoost', what: 'Predicts sell-through at every candidate price.', why: 'Built for nonlinear tabular data: stock, price, expiry and sales velocity.', color: C.violet, fill: '281E43' },
     { x: 3.78, tag: 'NOT AI · POLICY', heading: 'Optimizer', what: 'Selects the strongest eligible contribution score.', why: 'Keeps price floors, expiry blocks and overrides deterministic.', color: C.orange, fill: '4B2C1D' },
-    { x: 6.88, tag: 'AI #2 · LANGUAGE', heading: 'Gemini', what: 'Explains evidence, writes campaign copy and suggests a recipe.', why: 'Natural language is its strength; it never calculates the price.', color: C.green, fill: '193E33' },
+    { x: 6.88, tag: 'AI #2 · LANGUAGE', heading: 'Gemini', what: 'Explains evidence, writes email copy and suggests a recipe.', why: 'Natural language is its strength; it never calculates the price.', color: C.green, fill: '193E33' },
     { x: 9.98, tag: 'HUMAN · AUTHORITY', heading: 'Store owner', what: 'Approves or rejects the pending recommendation.', why: 'Pricing accountability remains with the merchant.', color: C.lime, fill: '284A3F' },
   ]
   layers.forEach((item, i) => {
@@ -342,103 +344,23 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
   text(slide, 'GEMINI COMMUNICATES', 5.45, 5.97, 1.9, 0.18, { fontSize: 8.2, bold: true, color: C.green, charSpacing: 0.7 })
   text(slide, '→', 7.43, 5.9, 0.35, 0.3, { fontSize: 17, bold: true, color: C.lime, align: 'center' })
   text(slide, 'OWNER DECIDES', 7.88, 5.97, 1.5, 0.18, { fontSize: 8.2, bold: true, color: C.lime, charSpacing: 0.7 })
-  pill(slide, 'LIVE PRIMARY AI: XGBOOST', 0.7, 6.6, 1.82, C.violet, C.white)
-  pill(slide, 'OPTIONAL GEN AI: GEMINI', 2.7, 6.6, 1.82, C.green, C.white)
-  pill(slide, 'SAFE FALLBACK: TEMPLATE', 4.7, 6.6, 2.02, '385E52', 'D6E5DF')
-  footer(slide, 'Technical implementation', true)
-  note(slide, 'Say this explicitly: We use XGBoost because pricing demand is a nonlinear tabular prediction problem. We use Gemini because explanations and campaigns are language tasks. The optimizer is not AI; it is deterministic policy that enforces business and safety rules. The owner remains the final authority. XGBoost is live. Gemini is optional and has a template fallback.')
+  pill(slide, 'LIVE: XGBOOST', 0.7, 6.6, 1.3, C.violet, C.white)
+  pill(slide, 'SYNTHETIC MAE 2.097 VS 6.332 BASELINE', 2.18, 6.6, 2.95, C.orange2, C.orange)
+  pill(slide, 'SAFE TEMPLATE FALLBACK', 5.32, 6.6, 1.95, '385E52', 'D6E5DF')
+  footer(slide, 'AI technologies used')
+  note(slide, 'State the role split explicitly: XGBoost predicts because demand is tabular and nonlinear. Deterministic policy enforces hard rules. Gemini handles explanations, personalized campaign language and recipe ideas, never pricing. Customer PII stays out of Gemini. The owner decides. Synthetic metrics validate the pipeline, not real-world lift.')
 }
 
-// Slide 6 — Model evidence
-{
-  const slide = pptx.addSlide('LIGHT')
-  kicker(slide, 'Model evidence')
-  title(slide, 'The training path is real. The business claim is not yet.', 'Time-ordered validation on 4,000 explicitly synthetic rows proves the pipeline — not store impact.')
-  rect(slide, 0.65, 2.25, 6.15, 3.95, C.white, 0.24, C.line, { shadow: true })
-  text(slide, 'FORECAST ERROR — LOWER IS BETTER', 0.98, 2.58, 3.7, 0.25, { fontSize: 9, bold: true, color: C.muted, charSpacing: 1.2 })
-  text(slide, 'MAE', 0.98, 3.14, 0.65, 0.25, { fontSize: 10, bold: true })
-  text(slide, '7-day velocity', 1.7, 3.12, 1.3, 0.25, { fontSize: 10, color: C.muted })
-  rect(slide, 3.05, 3.13, 2.75, 0.27, C.orange, 0.1)
-  text(slide, '6.332', 5.92, 3.06, 0.58, 0.38, { fontSize: 14, bold: true, color: C.orange, align: 'right' })
-  text(slide, 'XGBoost', 1.7, 3.65, 1.3, 0.25, { fontSize: 10, bold: true, color: C.violet })
-  rect(slide, 3.05, 3.66, 0.91, 0.27, C.violet, 0.1)
-  text(slide, '2.097', 5.92, 3.59, 0.58, 0.38, { fontSize: 14, bold: true, color: C.violet, align: 'right' })
-  line(slide, 0.98, 4.28, 5.48, 0, C.line)
-  text(slide, 'WAPE', 0.98, 4.62, 0.65, 0.25, { fontSize: 10, bold: true })
-  text(slide, '7-day velocity', 1.7, 4.61, 1.3, 0.25, { fontSize: 10, color: C.muted })
-  rect(slide, 3.05, 4.62, 2.75, 0.27, C.orange, 0.1)
-  text(slide, '27.9%', 5.85, 4.55, 0.65, 0.38, { fontSize: 14, bold: true, color: C.orange, align: 'right' })
-  text(slide, 'XGBoost', 1.7, 5.15, 1.3, 0.25, { fontSize: 10, bold: true, color: C.violet })
-  rect(slide, 3.05, 5.16, 0.91, 0.27, C.violet, 0.1)
-  text(slide, '9.2%', 5.85, 5.09, 0.65, 0.38, { fontSize: 14, bold: true, color: C.violet, align: 'right' })
-
-  rect(slide, 7.05, 2.25, 5.6, 3.95, C.forest, 0.24, null, { shadow: true })
-  pill(slide, 'EXPLAINABLE OUTPUT', 7.42, 2.58, 1.7, '2B5548', C.lime)
-  text(slide, 'One candidate prediction', 7.42, 3.12, 3.55, 0.38, { fontFace: DISPLAY, fontSize: 22, bold: true, color: C.white })
-  stat(slide, 7.42, 3.74, 1.44, 'LOW', '0', '2B5548', C.white)
-  stat(slide, 9.0, 3.74, 1.44, 'EXPECTED', '2.6', '2B5548', C.white)
-  stat(slide, 10.58, 3.74, 1.44, 'HIGH', '5.8', '2B5548', C.white)
-  text(slide, 'Top contributing factors', 7.42, 5.08, 2.3, 0.24, { fontSize: 9, bold: true, color: C.lime, charSpacing: 0.8 })
-  text(slide, '1  Days until expiry\n2  Recent 7-day velocity\n3  Previous 23-day velocity', 7.42, 5.38, 3.75, 0.65, { fontSize: 10.5, color: 'CAD9D3', breakLine: true, valign: 'top' })
-  pill(slide, 'SYNTHETIC EVALUATION — NO CAUSAL IMPACT CLAIM', 1.65, 6.5, 10.05, C.orange2, C.orange, 'FFD4BD')
-  footer(slide, 'Innovation & technical evidence')
-  note(slide, 'State the caveat before the numbers: these metrics validate the train/serve/evaluate pipeline on synthetic data. The next claim must come from merchant data and a controlled pilot.')
-}
-
-// Slide 7 — Explainability and approval
-{
-  const slide = pptx.addSlide('LIGHT')
-  kicker(slide, 'Trust by design')
-  title(slide, 'Every recommendation is inspectable — and reversible.', 'No silent price change. No black-box confidence. No customer identity in pricing.')
-  const rows = [
-    ['0%', '₹84', '5.6', '12.4', 'baseline'],
-    ['15%', '₹71', '8.2', '9.8', 'candidate'],
-    ['20%', '₹67', '10.8', '7.2', 'selected'],
-    ['25%', '₹63', '12.1', '5.9', 'candidate'],
-  ]
-  rect(slide, 0.65, 2.2, 6.55, 4.12, C.white, 0.24, C.line, { shadow: true })
-  text(slide, 'CANDIDATES TESTED', 0.98, 2.52, 2.4, 0.25, { fontSize: 9, bold: true, color: C.green, charSpacing: 1.2 })
-  ;['DISCOUNT', 'PRICE', 'UNITS', 'LEFT', 'DECISION'].forEach((label, i) => text(slide, label, 0.98 + [0, 1.0, 2.0, 3.0, 4.05][i], 3.02, [0.82, 0.82, 0.82, 0.82, 1.15][i], 0.2, { fontSize: 8, bold: true, color: C.muted }))
-  rows.forEach((row, index) => {
-    const y = 3.38 + index * 0.58
-    const selected = row[4] === 'selected'
-    rect(slide, 0.9, y, 5.98, 0.44, selected ? C.lime : index % 2 ? 'F8FAF9' : C.white, 0.1, selected ? C.lime : 'EDF2EF')
-    text(slide, row[0], 1.02, y, 0.7, 0.44, { fontSize: 11, bold: selected })
-    text(slide, row[1], 2.0, y, 0.72, 0.44, { fontSize: 11, bold: selected })
-    text(slide, row[2], 3.0, y, 0.72, 0.44, { fontSize: 11, bold: selected })
-    text(slide, row[3], 4.0, y, 0.72, 0.44, { fontSize: 11, bold: selected })
-    pill(slide, selected ? 'RECOMMENDED' : row[4].toUpperCase(), 5.05, y + 0.06, 1.56, selected ? C.forest : 'EEF3F0', selected ? C.white : C.muted)
-  })
-  text(slide, 'Illustrative candidate table from the synthetic demo.', 0.98, 5.93, 4.65, 0.18, { fontSize: 8.5, color: '8B9C96', italic: true })
-
-  const controls = [
-    ['01', 'Guardrails first', 'Expiry block, minimum price, bounded discount.'],
-    ['02', 'Evidence retained', 'Inputs, candidates, model, factors, version.'],
-    ['03', 'Human decision', 'Approve, reject, or preserve an override.'],
-    ['04', 'Outcome ledger', 'Link approval, order, pickup, waste, donation.'],
-  ]
-  controls.forEach(([num, heading, body], i) => {
-    const y = 2.28 + i * 1.02
-    circle(slide, 7.7, y, 0.45, i === 2 ? C.lime : C.green2, num, C.forest, 10)
-    text(slide, heading, 8.35, y - 0.02, 3.4, 0.28, { fontSize: 14, bold: true })
-    text(slide, body, 8.35, y + 0.3, 3.72, 0.42, { fontSize: 10.5, color: C.muted, valign: 'top' })
-    if (i < 3) line(slide, 7.92, y + 0.48, 0, 0.54, 'B9DACA', 1.2)
-  })
-  pill(slide, 'PRICING EXCLUDES CUSTOMER IDENTITY', 8.2, 6.42, 3.95, C.violet2, C.violet)
-  footer(slide, 'Explainability, safety & human oversight')
-  note(slide, 'Explain the separation of duties: model predicts, policy constrains, owner decides. Candidate values on this slide are illustrative and should not be presented as measured store results.')
-}
-
-// Slide 8 — Technical architecture
+// Slide 7 — Technical architecture
 {
   const slide = pptx.addSlide('DARK')
-  kicker(slide, 'System architecture', true)
-  title(slide, 'Store-scoped from database row to customer order.', 'The browser is untrusted. Every privileged operation resolves role and store ownership on the server.', true)
+  kicker(slide, 'Technical architecture', true)
+  title(slide, 'Store-scoped from database row to customer email.', 'The browser is untrusted. Role, store ownership and recommendation state are resolved on the server.', true)
   const bands = [
-    { y: 2.25, label: 'EXPERIENCE', color: C.lime, nodes: ['Customer marketplace', 'Owner portal', 'Offline judge demo'] },
-    { y: 3.38, label: 'APPLICATION', color: C.green, nodes: ['Next.js 16', 'Scan + approval APIs', 'Brevo adapter'] },
-    { y: 4.51, label: 'INTELLIGENCE', color: C.violet, nodes: ['XGBoost / FastAPI', 'Constrained optimizer', 'Gemini adapter'] },
-    { y: 5.64, label: 'DATA + OPS', color: C.orange, nodes: ['Supabase + RLS', 'Vercel + cron', 'Render model service'] },
+    { y: 2.22, label: 'EXPERIENCE', color: C.lime, nodes: ['Shopper marketplace', 'Owner portal', 'Offline judge demo'] },
+    { y: 3.34, label: 'APPLICATION', color: C.green, nodes: ['Next.js 16 / Vercel', 'Scan + approval APIs', 'Brevo email adapter'] },
+    { y: 4.46, label: 'INTELLIGENCE', color: C.violet, nodes: ['XGBoost / FastAPI', 'Constrained optimizer', 'Gemini + recipe copy'] },
+    { y: 5.58, label: 'DATA + OPS', color: C.orange, nodes: ['Supabase Auth + RLS', 'PostgreSQL + Storage', 'Render + Vercel Cron'] },
   ]
   bands.forEach((band, row) => {
     text(slide, band.label, 0.68, band.y + 0.23, 1.28, 0.25, { fontSize: 8.5, bold: true, color: band.color, charSpacing: 1.2 })
@@ -450,100 +372,78 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
       text(slide, node, x + 0.72, band.y + 0.13, 1.86, 0.48, { fontSize: 11, bold: true, color: C.white })
     })
   })
-  rect(slide, 11.92, 2.18, 0.65, 4.26, '244E42', 0.18)
-  text(slide, 'AUDIT\nTRAIL', 12.04, 2.62, 0.41, 1.0, { fontSize: 9, bold: true, color: C.lime, align: 'center', breakLine: true })
-  line(slide, 12.24, 3.75, 0, 1.68, '5D7D72', 1.4, 'dash')
-  text(slide, 'STORE\nID', 12.04, 5.5, 0.41, 0.58, { fontSize: 9, bold: true, color: C.white, align: 'center', breakLine: true })
-  footer(slide, 'Next.js · Supabase · XGBoost · Render · Vercel', true)
-  note(slide, 'Emphasize store_id as the tenant key. Service-role access stays server-side; recommendation and approval evidence is persisted for audit.')
+  rect(slide, 11.92, 2.15, 0.65, 4.24, '244E42', 0.18)
+  text(slide, 'STORE\nID', 12.04, 2.56, 0.41, 0.62, { fontSize: 9, bold: true, color: C.lime, align: 'center', breakLine: true })
+  line(slide, 12.24, 3.34, 0, 1.45, '5D7D72', 1.4, 'dash')
+  text(slide, 'AUDIT\nTRAIL', 12.04, 5.02, 0.41, 0.72, { fontSize: 9, bold: true, color: C.white, align: 'center', breakLine: true })
+  footer(slide, 'Next.js · Supabase · XGBoost · Gemini · Brevo · Render · Vercel', true)
+  note(slide, 'Explain trust boundaries. Public values stay in the browser; service role, model secret, Gemini key, Brevo key and cron secret stay server-side. store_id is the tenant key. The approval record connects model evidence to the published price and email campaign.')
 }
 
-// Slide 9 — Proof and readiness
+// Slide 8 — Impact and value proposition
 {
   const slide = pptx.addSlide('LIGHT')
-  kicker(slide, 'What is live today')
-  title(slide, 'A deployed product — with honest boundaries.', 'The system is usable now; impact claims wait for real merchant evidence.')
-  stat(slide, 0.7, 2.22, 2.6, 'AUTOMATED TESTS', '18', C.green2, C.forest)
-  stat(slide, 3.48, 2.22, 2.6, 'PUBLIC ROUTES VERIFIED', '8× 200', C.lime, C.forest)
-  stat(slide, 6.26, 2.22, 2.6, 'LIVE AI PROVIDER', 'XGBoost', C.violet2, C.violet)
-  stat(slide, 9.04, 2.22, 2.6, 'MCP CONTROL PLANES', '3', C.orange2, C.orange)
-
-  rect(slide, 0.7, 3.62, 5.72, 2.55, C.white, 0.23, C.line, { shadow: true })
-  pill(slide, 'PROVEN', 1.03, 3.94, 0.85, C.green2, C.green)
-  const proven = [
-    'Public Vercel app + credential-free demo',
-    'Authenticated owner and customer journeys',
-    'Remote XGBoost candidate predictions',
-    'Pending approval → live marketplace deal',
+  kicker(slide, 'Impact and value proposition')
+  title(slide, 'Create value before food becomes waste.', 'FreshSaver aligns store economics, shopper savings and measurable waste prevention.')
+  const impacts = [
+    { x: 0.68, tag: 'FOR STORES', heading: 'Protect margin', body: 'Choose product-level markdowns instead of blanket discounts, reduce manual review and build an auditable decision trail.', color: C.green, fill: C.green2 },
+    { x: 4.55, tag: 'FOR STUDENTS + SHOPPERS', heading: 'Find good local deals', body: 'Use the marketplace free, opt into relevant stores and categories, and receive recipe ideas for approved surplus offers.', color: C.orange, fill: C.orange2 },
+    { x: 8.42, tag: 'FOR THE FOOD SYSTEM', heading: 'Keep food in use', body: 'Intervene before surplus, improve sell-through, and record pickups, waste, donation and adjustment outcomes.', color: C.violet, fill: C.violet2 },
   ]
-  proven.forEach((item, i) => {
-    circle(slide, 1.04, 4.47 + i * 0.4, 0.19, C.green, '✓', C.white, 7)
-    text(slide, item, 1.38, 4.43 + i * 0.4, 4.45, 0.27, { fontSize: 10.5, bold: true, color: C.ink })
+  impacts.forEach((impact, i) => {
+    rect(slide, impact.x, 2.22, 3.42, 2.65, C.white, 0.24, C.line, { shadow: true })
+    circle(slide, impact.x + 0.25, 2.48, 0.48, impact.color, `${i + 1}`, C.white, 12)
+    text(slide, impact.tag, impact.x + 0.87, 2.58, 2.22, 0.2, { fontSize: 8, bold: true, color: impact.color, charSpacing: 0.9 })
+    text(slide, impact.heading, impact.x + 0.25, 3.25, 2.92, 0.42, { fontFace: DISPLAY, fontSize: 20, bold: true })
+    text(slide, impact.body, impact.x + 0.25, 3.82, 2.88, 0.75, { fontSize: 10.5, color: C.muted, valign: 'top' })
   })
-
-  rect(slide, 6.72, 3.62, 5.92, 2.55, C.white, 0.23, C.line, { shadow: true })
-  pill(slide, 'NOT YET CLAIMED', 7.05, 3.94, 1.55, C.orange2, C.orange)
-  const limits = [
-    'Real-store forecast quality',
-    'Incremental sales or waste reduction',
-    'Learned price elasticity',
-    'Production payment and concurrency guarantees',
-  ]
-  limits.forEach((item, i) => {
-    circle(slide, 7.06, 4.47 + i * 0.4, 0.19, C.orange2, '—', C.orange, 7)
-    text(slide, item, 7.4, 4.43 + i * 0.4, 4.5, 0.27, { fontSize: 10.5, bold: true, color: C.ink })
-  })
-  hyperlinkText(slide, 'freshsaver-ai.vercel.app', LIVE, 0.72, 6.52, 3.25, 0.26, { fontSize: 11, color: C.green })
-  text(slide, 'LIVE', 4.05, 6.54, 0.55, 0.18, { fontSize: 8, bold: true, color: C.green, charSpacing: 1 })
-  hyperlinkText(slide, 'freshsaver-demand-model.onrender.com', MODEL, 6.65, 6.52, 4.05, 0.26, { fontSize: 10.5, color: C.violet })
-  text(slide, 'MODEL API', 10.85, 6.54, 0.9, 0.18, { fontSize: 8, bold: true, color: C.violet, charSpacing: 1 })
-  footer(slide, 'Presentation & demo readiness')
-  note(slide, 'The honesty is intentional. Separate what the deployed product proves from outcomes that require a controlled pilot.')
+  rect(slide, 0.68, 5.18, 11.16, 0.92, C.forest, 0.2)
+  text(slide, 'PILOT IMPACT METRICS', 0.96, 5.46, 1.72, 0.2, { fontSize: 8.5, bold: true, color: C.lime, charSpacing: 1 })
+  text(slide, 'kg / tonnes diverted  •  sell-through before expiry  •  gross margin  •  shopper savings  •  pickup rate', 2.72, 5.39, 8.6, 0.32, { fontSize: 11.5, bold: true, color: C.white })
+  pill(slide, 'VALUE PROPOSITION', 1.0, 6.42, 1.5, C.lime, C.forest)
+  text(slide, 'Prevent waste before it becomes surplus — while making approved food more affordable.', 2.75, 6.38, 8.5, 0.3, { fontSize: 12, bold: true, color: C.ink })
+  footer(slide, 'Impact will be measured in a controlled merchant pilot')
+  note(slide, 'Do not claim measured tonnes yet. Explain the intended value for three groups: store margin and efficiency, free savings for students and budget-conscious shoppers, and earlier food-waste prevention. State exactly what the pilot will measure.')
 }
 
-// Slide 10 — Close / roadmap
+// Slide 9 — Future roadmap and close
 {
   const slide = pptx.addSlide('DARK')
-  kicker(slide, 'Pilot, measure, then scale', true)
-  title(slide, 'The next claim will come from a controlled pilot.', 'FreshSaver is ready for shadow recommendations with independent grocers.', true)
+  kicker(slide, 'Future roadmap', true)
+  title(slide, 'Pilot, learn, integrate, then scale.', 'FreshSaver is live today and ready for shadow recommendations with independent grocers.', true)
   const roadmap = [
-    ['NOW', 'Shadow mode', 'Forecast without changing prices.'],
-    ['NEXT', 'Controlled rollout', 'Capture approvals, overrides, and outcomes.'],
-    ['THEN', 'Learn elasticity', 'Retrain from intervention response.'],
-    ['SCALE', 'POS + shelf labels', 'Automate only within owner policy.'],
+    ['LIVE', 'Deployed MVP', 'Owner portal, shopper app, XGBoost and approval workflow.'],
+    ['PILOT', '3–5 retailers', 'Shadow forecasts, capture overrides, measure waste and margin.'],
+    ['LEARN', 'Store elasticity', 'Retrain from real intervention response and calibrate ranges.'],
+    ['INTEGRATE', 'POS + payments', 'Transactional reservations, POS feeds and electronic shelf labels.'],
+    ['SCALE', 'Circular network', 'Donation routing, store transfers and multi-location policies.'],
   ]
   roadmap.forEach(([tag, heading, body], i) => {
-    const x = 0.7 + i * 2.96
-    rect(slide, x, 2.32, 2.55, 2.22, i === 0 ? C.lime : '244E42', 0.23, i === 0 ? C.lime : '41655A')
-    text(slide, tag, x + 0.22, 2.56, 0.9, 0.23, { fontSize: 8.5, bold: true, color: i === 0 ? C.forest : C.lime, charSpacing: 1.2 })
-    text(slide, heading, x + 0.22, 3.02, 2.05, 0.34, { fontFace: DISPLAY, fontSize: 18, bold: true, color: i === 0 ? C.forest : C.white })
-    text(slide, body, x + 0.22, 3.56, 2.04, 0.54, { fontSize: 10.5, color: i === 0 ? '315A4E' : 'BBD0C8', valign: 'top' })
+    const x = 0.55 + i * 2.5
+    rect(slide, x, 2.25, 2.18, 2.65, i === 0 ? C.lime : '244E42', 0.22, i === 0 ? C.lime : '41655A')
+    text(slide, tag, x + 0.2, 2.52, 1.05, 0.2, { fontSize: 8, bold: true, color: i === 0 ? C.forest : C.lime, charSpacing: 1 })
+    text(slide, heading, x + 0.2, 3.08, 1.78, 0.5, { fontFace: DISPLAY, fontSize: 17, bold: true, color: i === 0 ? C.forest : C.white })
+    text(slide, body, x + 0.2, 3.75, 1.75, 0.75, { fontSize: 9.5, color: i === 0 ? '315A4E' : 'BBD0C8', valign: 'top' })
+    if (i < roadmap.length - 1) arrow(slide, x + 2.22, 3.35, C.lime)
   })
-  rect(slide, 0.7, 4.95, 8.2, 1.08, '244E42', 0.2)
-  text(slide, 'PROPOSED BUSINESS MODEL', 0.98, 5.18, 1.75, 0.2, { fontSize: 8.5, bold: true, color: C.lime, charSpacing: 1 })
-  text(slide, '10% of attributable campaign sales  •  no setup fee  •  impact measured before ROI is claimed', 0.98, 5.52, 7.35, 0.28, { fontSize: 12, bold: true, color: C.white })
-
-  rect(slide, 9.22, 4.88, 3.38, 1.45, C.paper, 0.22)
-  text(slide, 'Would you pilot this?', 9.52, 5.12, 2.75, 0.32, { fontFace: DISPLAY, fontSize: 20, bold: true, color: C.forest, align: 'center' })
-  text(slide, 'Scan for the live product', 9.62, 5.55, 2.55, 0.2, { fontSize: 9.5, color: C.muted, align: 'center' })
-  hyperlinkText(slide, 'OPEN LIVE DEMO  →', DEMO, 9.68, 5.88, 2.4, 0.24, { fontSize: 10, color: C.green, align: 'center' })
-  text(slide, 'Detect risk. Protect margin. Reach the right shopper.', 1.35, 6.52, 8.4, 0.3, { fontFace: DISPLAY, fontSize: 18, bold: true, color: C.lime })
-  footer(slide, 'FreshSaver AI · live product and source linked', true)
-  note(slide, 'Close on disciplined ambition: the product already connects the decision to action. Ask judges or merchants for a shadow pilot, not blind autonomy.')
+  rect(slide, 0.75, 5.32, 7.92, 0.92, '244E42', 0.18)
+  text(slide, 'PROPOSED BUSINESS MODEL', 1.02, 5.6, 1.72, 0.2, { fontSize: 8.3, bold: true, color: C.lime, charSpacing: 1 })
+  text(slide, 'Free for shoppers  •  stores pay 10% of attributable campaign sales  •  no setup fee', 2.78, 5.52, 5.45, 0.35, { fontSize: 11.5, bold: true, color: C.white })
+  rect(slide, 9.05, 5.18, 3.55, 1.35, C.paper, 0.22)
+  text(slide, 'Would you pilot this?', 9.38, 5.43, 2.85, 0.3, { fontFace: DISPLAY, fontSize: 19, bold: true, color: C.forest, align: 'center' })
+  hyperlinkText(slide, 'OPEN LIVE PRODUCT  →', LIVE, 9.5, 5.9, 2.58, 0.24, { fontSize: 10, color: C.green, align: 'center' })
+  footer(slide, 'FreshSaver AI · detect risk · protect margin · reach the right shopper', true)
+  note(slide, 'Close with the roadmap and ask for a pilot. The MVP is live. The next claim comes from measured merchant outcomes. Shoppers use the app free; the proposed store model is 10% of attributable campaign sales with no setup fee.')
 }
 
 async function main() {
   await fs.mkdir(OUTPUT_DIR, { recursive: true })
-  const [demoQr, sourceQr] = await Promise.all([
-    QRCode.toDataURL(DEMO, { margin: 1, width: 320, color: { dark: `#${C.forest}`, light: '#FFFFFF' } }),
-    QRCode.toDataURL(SOURCE, { margin: 1, width: 320, color: { dark: `#${C.forest}`, light: '#FFFFFF' } }),
-  ])
+  const demoQr = await QRCode.toDataURL(DEMO, { margin: 1, width: 320, color: { dark: `#${C.forest}`, light: '#FFFFFF' } })
 
   const cover = pptx._slides[0]
   cover.addImage({ data: demoQr, x: 11.72, y: 6.1, w: 0.72, h: 0.72, hyperlink: { url: DEMO } })
-  const close = pptx._slides[9]
-  close.addImage({ data: demoQr, x: 11.82, y: 5.05, w: 0.62, h: 0.62, hyperlink: { url: DEMO } })
-  close.addImage({ data: sourceQr, x: 12.05, y: 6.32, w: 0.42, h: 0.42, hyperlink: { url: SOURCE } })
+  const close = pptx._slides[8]
+  close.addImage({ data: demoQr, x: 11.98, y: 6.28, w: 0.46, h: 0.46, hyperlink: { url: DEMO } })
 
   await pptx.writeFile({ fileName: OUTPUT })
   console.log(`Generated ${OUTPUT}`)

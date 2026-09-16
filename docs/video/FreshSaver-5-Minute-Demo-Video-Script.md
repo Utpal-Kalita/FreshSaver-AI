@@ -19,7 +19,7 @@ Narration: **566 words**
 - Open https://freshsaver-demand-model.onrender.com/health once to warm the free Render service.
 - Use a 1920×1080 recording canvas and browser zoom around 85–90%.
 - Hide bookmarks, notifications, personal tabs, passwords, and developer tokens.
-- Open the deck at Slides 1, 2, 5 and 10, plus browser tabs for https://freshsaver-ai.vercel.app/, /login, /dashboard, /dashboard/products, /dashboard/customers, /dashboard/pricing, /deals, /auth/login, and /account.
+- Open the deck at Slides 1, 2, 6 and 9, plus browser tabs for https://freshsaver-ai.vercel.app/, /login, /dashboard, /dashboard/products, /dashboard/customers, /dashboard/pricing, /deals, /auth/login, and /account.
 - Confirm the owner and shopper demo buttons work in a private browser window.
 - Run the agent once before recording so a pending XGBoost recommendation exists as backup.
 - Do not enter real card data. Checkout is explicitly a mock payment experience.
@@ -101,7 +101,7 @@ Narration: **566 words**
 
 ### Scene 7: 02:20–02:48 — Role of AI: what and why
 
-**Screen:** PowerPoint: docs/deck/FreshSaver-AI-Builders-Hackathon.pptx → Slide 5 — “Two AIs. Two jobs. One controlled decision.”
+**Screen:** PowerPoint: docs/deck/FreshSaver-AI-Builders-Hackathon.pptx → Slide 6 — “Two AIs. Two jobs. One controlled decision.”
 
 **Action:** Show the four columns from left to right. Pause on each WHAT and WHY block: XGBoost, optimizer, Gemini, and store owner.
 
@@ -137,7 +137,7 @@ Narration: **566 words**
 
 ### Scene 10: 04:15–04:45 — Impact, value proposition, and close
 
-**Screen:** PowerPoint: docs/deck/FreshSaver-AI-Builders-Hackathon.pptx → Slide 10 — “Pilot, measure, then scale.”
+**Screen:** PowerPoint: docs/deck/FreshSaver-AI-Builders-Hackathon.pptx → Slide 9 — “Pilot, learn, integrate, then scale.”
 
 **Action:** Return to the closing slide. Pause on the live-demo link and roadmap. End before 04:45 and leave five seconds of clean video tail.
 
