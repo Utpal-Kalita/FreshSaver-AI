@@ -17,6 +17,7 @@ Built for the **AI Builders Hackathon 2026**.
 | XGBoost model API | [freshsaver-demand-model.onrender.com](https://freshsaver-demand-model.onrender.com) |
 | Public source | [github.com/Utpal-Kalita/FreshSaver-AI](https://github.com/Utpal-Kalita/FreshSaver-AI) |
 | Presentation deck | [FreshSaver-AI-Builders-Hackathon.pptx](docs/deck/FreshSaver-AI-Builders-Hackathon.pptx) |
+| 5-minute video script | [FreshSaver-5-Minute-Demo-Video-Script.pdf](docs/video/FreshSaver-5-Minute-Demo-Video-Script.pdf) |
 | Demo video | Add submission video URL |
 
 The `/demo` route is synthetic, credential-free, and independent of Supabase,
@@ -868,6 +869,8 @@ Then run the pricing agent. Production is configured with a 60-second model time
 ## Evidence And Submission Assets
 
 - [`docs/deck/FreshSaver-AI-Builders-Hackathon.pptx`](docs/deck/FreshSaver-AI-Builders-Hackathon.pptx) - editable 10-slide presentation
+- [`docs/video/FreshSaver-5-Minute-Demo-Video-Script.pdf`](docs/video/FreshSaver-5-Minute-Demo-Video-Script.pdf) - timed screen-by-screen recording guide
+- [`docs/video/FreshSaver-5-Minute-Demo-Video-Script.md`](docs/video/FreshSaver-5-Minute-Demo-Video-Script.md) - editable narration source
 - [`docs/demo-script.md`](docs/demo-script.md) - timed demo under five minutes
 - [`docs/model-card.md`](docs/model-card.md) - model behavior, data, evaluation, and limitations
 - [`docs/evidence/model-evaluation.md`](docs/evidence/model-evaluation.md) - synthetic evaluation report
