@@ -19,7 +19,17 @@ async function testRole(role, expectedPath) {
 
   const setCookies = response.headers.getSetCookie()
   if (setCookies.length === 0) throw new Error(`${role}: authentication response did not set session cookies`)
-  const cookieHeader = setCookies.map(cookie => cookie.split(';', 1)[0]).join('; ')
+  const cookieJar = new Map()
+  for (const cookie of setCookies) {
+    const pair = cookie.split(';', 1)[0]
+    const separator = pair.indexOf('=')
+    if (separator < 1) continue
+    const name = pair.slice(0, separator)
+    const value = pair.slice(separator + 1)
+    if (value) cookieJar.set(name, value)
+    else cookieJar.delete(name)
+  }
+  const cookieHeader = [...cookieJar].map(([name, value]) => `${name}=${value}`).join('; ')
   const destination = await fetch(new URL(location, baseUrl), {
     headers: { Cookie: cookieHeader },
     redirect: 'manual',
