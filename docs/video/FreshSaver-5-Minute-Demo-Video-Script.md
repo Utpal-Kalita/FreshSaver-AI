@@ -2,7 +2,7 @@
 
 Target runtime: **4:45**
 
-Narration: **529 words**
+Narration: **560 words**
 
 ## Requirement Coverage
 
@@ -10,8 +10,8 @@ Narration: **529 words**
 |---|---|---|
 | Problem being solved | 00:00–00:52 | Sourced waste scale plus the local expiry-pricing decision |
 | How the solution works | 00:52–01:15 | Inventory → prediction → policy → approval → shopper |
-| Key features and functionality | 01:15–02:20 and 03:12–04:15 | Owner, products, customers, pricing, marketplace, account |
-| Role of AI | 02:20–03:48 | XGBoost, deterministic optimizer, Gemini/template, provenance |
+| Key features and functionality | 01:15–02:20 and 02:48–04:15 | Owner, products, customers, pricing, marketplace, account |
+| Role of AI | 02:20–03:35 | Slide 5 role split plus live XGBoost evidence |
 | Live product demonstration | 00:52–04:15 | Production Vercel app and connected Render model |
 
 ## Pre-Recording Checklist
@@ -19,7 +19,7 @@ Narration: **529 words**
 - Open https://freshsaver-demand-model.onrender.com/health once to warm the free Render service.
 - Use a 1920×1080 recording canvas and browser zoom around 85–90%.
 - Hide bookmarks, notifications, personal tabs, passwords, and developer tokens.
-- Open the deck at Slide 1, plus browser tabs for https://freshsaver-ai.vercel.app/, /login, /dashboard, /dashboard/products, /dashboard/customers, /dashboard/pricing, /deals, /auth/login, and /account.
+- Open the deck at Slides 1, 2, 5 and 10, plus browser tabs for https://freshsaver-ai.vercel.app/, /login, /dashboard, /dashboard/products, /dashboard/customers, /dashboard/pricing, /deals, /auth/login, and /account.
 - Confirm the owner and shopper demo buttons work in a private browser window.
 - Run the agent once before recording so a pending XGBoost recommendation exists as backup.
 - Do not enter real card data. Checkout is explicitly a mock payment experience.
@@ -99,39 +99,39 @@ Narration: **529 words**
 
 **Suggested overlay:** Explicit store opt-in • category matching
 
-### Scene 7: 02:20–03:12 — Role of AI and live demonstration
+### Scene 7: 02:20–02:48 — Role of AI: what and why
+
+**Screen:** PowerPoint: docs/deck/FreshSaver-AI-Builders-Hackathon.pptx → Slide 5 — “Two AIs. Two jobs. One controlled decision.”
+
+**Action:** Show the four columns from left to right. Pause on each WHAT and WHY block: XGBoost, optimizer, Gemini, and store owner.
+
+**Narration (59 words):**
+
+> FreshSaver uses two AI systems for different jobs. XGBoost predicts numerical demand because grocery data is tabular: stock, price, expiry, category, and sales velocity. The optimizer is not AI; it enforces deterministic price floors and safety rules. Gemini is optional and turns fixed evidence into clear language, but never chooses the price. The store owner remains the final authority.
+
+**Suggested overlay:** XGBoost predicts → policy constrains → Gemini communicates → owner decides
+
+### Scene 8: 02:48–03:35 — Live AI demonstration and approval
 
 **Screen:** https://freshsaver-ai.vercel.app/dashboard/pricing → Before recording, warm https://freshsaver-demand-model.onrender.com/health
 
-**Action:** Click “Run Agent Now.” Keep the progress line visible: loading products, forecasting demand, preparing discounts, and campaign copy. When cards appear, select an XGBoost recommendation.
+**Action:** Click “Run Agent Now.” Keep the four progress stages visible. When recommendation cards appear, point to XGBoost, range, clearance probability, margin, factors, model version, training provenance, Approve & Notify, and Reject.
 
-**Narration (86 words):**
+**Narration (78 words):**
 
-> This is the live pricing agent. For each near-expiry product, XGBoost predicts sell-through under every allowed price and returns a low, expected, and high range plus feature contributions. A deterministic optimizer then applies the merchant’s price floor, unit cost, disposal cost, expiry rules, and maximum discount. Gemini can translate the fixed evidence into a manager summary and campaign message, but it cannot change the price. If Gemini is unavailable, FreshSaver records a template fallback instead. The scan creates pending recommendations; it does not silently publish them.
+> Now we run that architecture live. XGBoost predicts sell-through under every allowed price and returns a low, expected, and high range with feature contributions. The optimizer applies unit cost, disposal cost, expiry rules, the merchant’s minimum price, and discount limits. The result is stored as a pending recommendation with model provenance, expected margin, clearance probability, and top factors. Nothing is published silently. The owner can approve or reject it, and approval records the reviewer before activating the deal.
 
-**Suggested overlay:** XGBoost predicts • policy constrains • owner controls
+**Suggested overlay:** Live XGBoost evidence • pending owner decision
 
-### Scene 8: 03:12–03:48 — Explainability and approval
+### Scene 9: 03:35–04:15 — Explainability, approval, and customer outcome
 
-**Screen:** https://freshsaver-ai.vercel.app/dashboard/pricing → Pending AI recommendation card
+**Screen:** https://freshsaver-ai.vercel.app/dashboard/pricing → Then https://freshsaver-ai.vercel.app/deals, /auth/login and /account
 
-**Action:** Point to model provider, model version, training provenance, predicted range, clearance probability, expected margin, and top factors. Show Approve & Notify and Reject. Preserve shared demo state unless email delivery is configured.
+**Action:** Show Approve & Notify and Reject without changing shared state. Switch to Deals and open an already approved product. Show price, store, stock, and pickup context. Use “Continue as demo shopper,” then show Account.
 
-**Narration (53 words):**
+**Narration (73 words):**
 
-> Every recommendation shows where it came from. The owner can inspect the predicted range, clearance probability, expected margin, top model factors, model version, and whether generation used Gemini or the fallback. The recommendation remains pending until the owner approves or rejects it. Approval publishes the price, records the reviewer, and activates matching shoppers.
-
-**Suggested overlay:** No black box • no silent price change
-
-### Scene 9: 03:48–04:15 — Customer outcome
-
-**Screen:** https://freshsaver-ai.vercel.app/deals → Then https://freshsaver-ai.vercel.app/auth/login and https://freshsaver-ai.vercel.app/account
-
-**Action:** Switch to Deals and open an approved product. Show price, store, and stock. Use “Continue as demo shopper,” then briefly show the account/order-history screen.
-
-**Narration (40 words):**
-
-> Approved offers appear in the customer marketplace with the store, current price, stock, and pickup context. The cart is restricted to one store, and checkout re-reads price and availability from the database. Customers can then see their store-scoped order history.
+> Every recommendation remains inspectable and reversible. Approval publishes the price and activates only shoppers who opted into that store and category. On the customer side, the approved deal shows the current price, store, stock, and pickup context. The cart is restricted to one store, checkout re-reads price and availability from the database, and the shopper can see the order in their account. This closes the loop from prediction to an actionable local offer.
 
 **Suggested overlay:** Approved deal → local shopper → pickup workflow
 
