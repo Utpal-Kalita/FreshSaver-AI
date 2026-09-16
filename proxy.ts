@@ -90,16 +90,22 @@ export async function proxy(request: NextRequest) {
     return supabaseResponse
   }
 
-  // ── Auth pages — redirect already-authenticated users ───────
+  // Auth pages keep the opposite-role login available so judges can switch personas.
   if ((pathname === '/login' || pathname === '/auth/login' || pathname === '/auth/signup') && user) {
     if (user.email === SUPER_ADMIN_EMAIL) return redirectTo('/admin/dashboard')
-    // Store admin → their dashboard
     const { data: storeAdmin } = await supabase
       .from('store_admins')
       .select('store_id')
       .eq('user_id', user.id)
       .limit(1)
       .maybeSingle()
+
+    if (pathname === '/login') {
+      return storeAdmin ? redirectTo('/dashboard') : supabaseResponse
+    }
+    if (pathname === '/auth/login') {
+      return storeAdmin ? supabaseResponse : redirectTo('/')
+    }
     return storeAdmin ? redirectTo('/dashboard') : redirectTo('/')
   }
 

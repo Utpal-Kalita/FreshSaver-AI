@@ -42,6 +42,8 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = await createClient()
+  // Replace an existing shopper/owner session when judges switch demo personas.
+  await supabase.auth.signOut({ scope: 'local' })
   const { data, error } = await supabase.auth.signInWithPassword({
     email: credentials.email,
     password: credentials.password,
