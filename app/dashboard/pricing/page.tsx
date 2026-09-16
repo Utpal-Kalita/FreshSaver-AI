@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { format } from 'date-fns'
-import { Bot, BrainCircuit, CalendarClock, History, Mail, PackageSearch, ShieldCheck, Tags } from 'lucide-react'
+import { Bot, BrainCircuit, CalendarClock, ChefHat, History, Mail, PackageSearch, ShieldCheck, Tags } from 'lucide-react'
 import { createServiceClient } from '@/lib/supabase/server'
 import { getServerUser, getStoreAdminRecord } from '@/lib/auth'
 import { daysUntilDate } from '@/lib/date-utils'
@@ -58,6 +58,14 @@ interface PendingRecommendation {
     manager_summary?: string
     risk_signal?: string
   }
+  campaign_copy?: {
+    recipe?: {
+      title?: string
+      intro?: string
+      ingredients?: string[]
+      steps?: string[]
+    }
+  }
   products: {
     product_name: string
     sku: string
@@ -104,7 +112,7 @@ export default async function PricingPage() {
       .limit(12),
     supabase
       .from('recommendations')
-      .select('id, recommended_price, recommended_discount_pct, model_provider, model_version, evidence, ai_analysis, products(product_name, sku, stock_quantity, expiry_date)')
+      .select('id, recommended_price, recommended_discount_pct, model_provider, model_version, evidence, ai_analysis, campaign_copy, products(product_name, sku, stock_quantity, expiry_date)')
       .eq('store_id', storeAdmin.store_id)
       .eq('status', 'pending')
       .order('created_at', { ascending: false })
@@ -165,6 +173,15 @@ export default async function PricingPage() {
                       <div className="flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-wider text-violet-200"><BrainCircuit size={14} />{recommendation.model_provider === 'xgboost' ? 'XGBoost prediction' : 'Heuristic fallback'}<span className="text-white/25">+</span><Bot size={14} />{recommendation.ai_analysis?.provider === 'gemini' ? `Gemini ${recommendation.ai_analysis.model ?? ''}` : 'Template explanation'}</div>
                       <p className="mt-2 text-sm leading-6 text-white/75">{recommendation.ai_analysis?.manager_summary ?? recommendation.evidence?.explanation ?? 'Review the model evidence before applying this price.'}</p>
                     </div>
+
+                    {recommendation.campaign_copy?.recipe?.title && (
+                      <div className="mt-3 rounded-2xl border border-orange-300/20 bg-orange-300/10 p-4">
+                        <p className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wide text-orange-200"><ChefHat size={13} /> Customer recipe preview</p>
+                        <p className="mt-1.5 text-sm font-black text-white">{recommendation.campaign_copy.recipe.title}</p>
+                        {recommendation.campaign_copy.recipe.intro && <p className="mt-1 text-xs leading-5 text-orange-50/65">{recommendation.campaign_copy.recipe.intro}</p>}
+                        <p className="mt-2 text-[10px] text-orange-100/45">{recommendation.campaign_copy.recipe.ingredients?.length ?? 0} ingredients · {recommendation.campaign_copy.recipe.steps?.length ?? 0} steps</p>
+                      </div>
+                    )}
 
                     {selected?.factors?.length ? <p className="mt-3 text-[10px] text-emerald-100/45">Top model factors: {selected.factors.slice(0, 3).map(factor => factor.feature.replaceAll('_', ' ')).join(', ')}</p> : null}
                     <div className="mt-5 flex items-end justify-between gap-4"><p className="text-[10px] text-emerald-100/35">Model {recommendation.model_version}<br />Training data: {recommendation.evidence?.training_data === 'synthetic_demo' ? 'synthetic demo only' : recommendation.evidence?.training_data ?? 'not applicable'}</p><RecommendationActions recommendationId={recommendation.id} /></div>

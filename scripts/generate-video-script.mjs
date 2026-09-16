@@ -96,7 +96,7 @@ const scenes = [
     criterion: 'Role of AI: what and why',
     screen: `PowerPoint: ${DECK}\nSlide 5 — “Two AIs. Two jobs. One controlled decision.”`,
     action: 'Show the four columns from left to right. Pause on each WHAT and WHY block: XGBoost, optimizer, Gemini, and store owner.',
-    narration: 'FreshSaver uses two AI systems for different jobs. XGBoost predicts numerical demand because grocery data is tabular: stock, price, expiry, category, and sales velocity. The optimizer is not AI; it enforces deterministic price floors and safety rules. Gemini is optional and turns fixed evidence into clear language, but never chooses the price. The store owner remains the final authority.',
+    narration: 'FreshSaver uses two AI systems for different jobs. XGBoost predicts numerical demand because grocery data is tabular: stock, price, expiry, category, and sales velocity. The optimizer is not AI; it enforces deterministic price floors and safety rules. Gemini is optional and turns fixed evidence into clear language, campaign copy, and a recipe idea, but never chooses the price. The store owner remains the final authority.',
     overlay: 'XGBoost predicts → policy constrains → Gemini communicates → owner decides',
   },
   {

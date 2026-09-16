@@ -2,7 +2,7 @@
 
 Target runtime: **4:45**
 
-Narration: **560 words**
+Narration: **566 words**
 
 ## Requirement Coverage
 
@@ -105,9 +105,9 @@ Narration: **560 words**
 
 **Action:** Show the four columns from left to right. Pause on each WHAT and WHY block: XGBoost, optimizer, Gemini, and store owner.
 
-**Narration (59 words):**
+**Narration (65 words):**
 
-> FreshSaver uses two AI systems for different jobs. XGBoost predicts numerical demand because grocery data is tabular: stock, price, expiry, category, and sales velocity. The optimizer is not AI; it enforces deterministic price floors and safety rules. Gemini is optional and turns fixed evidence into clear language, but never chooses the price. The store owner remains the final authority.
+> FreshSaver uses two AI systems for different jobs. XGBoost predicts numerical demand because grocery data is tabular: stock, price, expiry, category, and sales velocity. The optimizer is not AI; it enforces deterministic price floors and safety rules. Gemini is optional and turns fixed evidence into clear language, campaign copy, and a recipe idea, but never chooses the price. The store owner remains the final authority.
 
 **Suggested overlay:** XGBoost predicts → policy constrains → Gemini communicates → owner decides
 

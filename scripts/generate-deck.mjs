@@ -320,7 +320,7 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
   const layers = [
     { x: 0.68, tag: 'AI #1 · PREDICTION', heading: 'XGBoost', what: 'Predicts sell-through at every candidate price.', why: 'Built for nonlinear tabular data: stock, price, expiry and sales velocity.', color: C.violet, fill: '281E43' },
     { x: 3.78, tag: 'NOT AI · POLICY', heading: 'Optimizer', what: 'Selects the strongest eligible contribution score.', why: 'Keeps price floors, expiry blocks and overrides deterministic.', color: C.orange, fill: '4B2C1D' },
-    { x: 6.88, tag: 'AI #2 · LANGUAGE', heading: 'Gemini', what: 'Explains fixed evidence and writes campaign copy.', why: 'Natural language is its strength; it never calculates the price.', color: C.green, fill: '193E33' },
+    { x: 6.88, tag: 'AI #2 · LANGUAGE', heading: 'Gemini', what: 'Explains evidence, writes campaign copy and suggests a recipe.', why: 'Natural language is its strength; it never calculates the price.', color: C.green, fill: '193E33' },
     { x: 9.98, tag: 'HUMAN · AUTHORITY', heading: 'Store owner', what: 'Approves or rejects the pending recommendation.', why: 'Pricing accountability remains with the merchant.', color: C.lime, fill: '284A3F' },
   ]
   layers.forEach((item, i) => {

@@ -121,6 +121,8 @@ allowed. The store owner decides whether the recommendation goes live.
   date, and status
 - Email deduplication by customer, product, and tier
 - Retry support for failed sends
+- Locally personalized subjects and store/category context without sending customer PII to Gemini
+- Product-specific recipe ideas with ingredients, steps, and food-handling disclaimers
 
 ### Store-Owner Portal
 
@@ -260,9 +262,15 @@ returns structured:
 - Email subject
 - Campaign headline
 - Shopper message
+- Product-specific recipe title, introduction, ingredients, and steps
 
 Gemini cannot change the selected price, discount, expiry date, prediction, or
 guardrails. Customer identity is never included in the Gemini prompt.
+
+Customer personalization is applied after generation: the email renderer adds the
+shopper's first name and the store/category they opted into. Recipe content is
+escaped before HTML rendering and always includes package-date, storage, allergen,
+and cooking guidance.
 
 When Gemini is unavailable, FreshSaver stores and uses a deterministic template
 fallback. The deployed product currently demonstrates this safe fallback unless a
@@ -776,7 +784,7 @@ npm run build
 npm audit --omit=dev --audit-level=high
 ```
 
-Current automated suite: **18 tests across 6 files**.
+Current automated suite: **20 tests across 7 files**.
 
 Covered behavior includes:
 

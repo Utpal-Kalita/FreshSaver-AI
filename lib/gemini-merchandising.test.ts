@@ -25,6 +25,9 @@ describe('Gemini merchandising brief', () => {
     const result = await createMerchandisingBrief({ productName: 'Whole milk', category: 'Dairy', stockQuantity: 20, daysUntilExpiry: 4, originalPrice: 100, recommendation: recommendation() })
     expect(result.provider).toBe('template')
     expect(result.campaign.subject).toContain('Whole milk')
+    expect(result.campaign.recipe.title).toContain('Whole milk')
+    expect(result.campaign.recipe.ingredients.length).toBeGreaterThanOrEqual(4)
+    expect(result.campaign.recipe.steps.length).toBeGreaterThanOrEqual(3)
   })
 
   it('parses structured grounded output from Gemini', async () => {
@@ -39,6 +42,10 @@ describe('Gemini merchandising brief', () => {
           emailSubject: 'Fresh milk deal',
           emailHeadline: 'Save on milk today',
           emailBody: 'Pick up fresh milk at a lower price and help keep food in use.',
+          recipeTitle: 'Quick cinnamon milk oats',
+          recipeIntro: 'Use the milk deal in a simple breakfast.',
+          recipeIngredients: ['Whole milk', 'Oats', 'Cinnamon', 'Banana'],
+          recipeSteps: ['Warm the milk and oats.', 'Add cinnamon.', 'Top with banana.'],
         }) }] } }],
       }),
     }))
@@ -48,5 +55,7 @@ describe('Gemini merchandising brief', () => {
     expect(result.model).toBe('gemini-test')
     expect(result.riskSignal).toBe('high')
     expect(result.campaign.subject).toBe('Fresh milk deal')
+    expect(result.campaign.recipe.title).toBe('Quick cinnamon milk oats')
+    expect(result.campaign.recipe.ingredients).toHaveLength(4)
   })
 })

@@ -74,6 +74,9 @@ Rules:
 receives product and model evidence, never customer identity, email, phone, or
 subscription records. The deterministic policy selects and constrains the price
 before Gemini is called, so generated output cannot alter pricing or safety rules.
+Recipe ideas are bounded and treated as inspiration only. Customer-name and
+store/category personalization happens locally after generation, and the email
+renderer escapes every generated recipe field before inserting it into HTML.
 
 `DEMAND_MODEL_API_KEY` authenticates server-to-server requests to the XGBoost
 inference service. Keep the service private where possible, rotate the key on

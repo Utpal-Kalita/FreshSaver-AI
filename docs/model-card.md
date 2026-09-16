@@ -12,8 +12,8 @@ FreshSaver uses three deliberately separated layers:
    service is unavailable, it records and uses `freshsaver-demand-v1` as a labeled
    fallback.
 3. Gemini consumes only the stored numerical evidence to generate a concise manager
-   rationale and campaign copy. Gemini cannot alter the candidate prices, selected
-   discount, expiry date, or safety controls.
+   rationale, campaign copy, and a product-specific recipe idea. Gemini cannot alter
+   the candidate prices, selected discount, expiry date, or safety controls.
 
 The system creates a pending recommendation with complete provenance. A store owner
 must approve it before FreshSaver publishes the price or emails opted-in shoppers.
@@ -28,6 +28,8 @@ It is not intended to make autonomous food-safety decisions.
 - Preserve a manager-set price instead of applying an automated recommendation.
 - Record the inputs, alternatives, and rationale used in each scan.
 - Generate grounded manager explanations and campaign copy from fixed evidence.
+- Generate short recipe ideas using the featured product, with bounded ingredients
+  and steps, without receiving customer identity.
 
 ## Out Of Scope
 
@@ -185,7 +187,7 @@ As checked on 2026-09-15:
 - `lib/markdown-recommender.test.ts` covers expiry blocking, price holding,
   deterministic fallback, manager override, and XGBoost candidate integration.
 - `lib/gemini-merchandising.test.ts` covers labeled fallback and structured Gemini output.
-- The complete Vitest suite passes 18 tests across six files.
+- The complete Vitest suite passes 20 tests across seven files.
 - TypeScript checking passes with `npm run typecheck`.
 
 The repository includes a reproducible generator and time-ordered training and

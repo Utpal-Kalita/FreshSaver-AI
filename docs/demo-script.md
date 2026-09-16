@@ -71,9 +71,10 @@ Say:
 "The connected agent uses XGBoost to predict sell-through for every eligible price
 and exposes the prediction range and top contributing features. A deterministic
 policy then enforces expiry, price floors, and manager controls. Gemini receives
-only that fixed evidence to explain the decision and write the campaign; it cannot
-change the price. This offline page uses the labeled fallback so it remains reliable
-without external credentials."
+only that fixed evidence to explain the decision, write the campaign, and suggest a
+recipe using the featured product; it cannot change the price. Customer names and
+preferences are added locally and never sent to Gemini. This offline page uses the
+labeled fallback so it remains reliable without external credentials."
 
 Click: Select Greek yogurt.
 

@@ -3,12 +3,7 @@ import { createServiceClient } from '@/lib/supabase/server'
 import { getServerUser, getStoreAdminRecord } from '@/lib/auth'
 import { daysUntilDate } from '@/lib/date-utils'
 import { sendTierEmails, type TieredProduct } from '@/lib/email'
-
-interface CampaignCopy {
-  subject?: string
-  headline?: string
-  body?: string
-}
+import type { CampaignCopy } from '@/lib/gemini-merchandising'
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const user = await getServerUser()
@@ -118,7 +113,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     store_id: product.store_id,
     category: product.category,
     discount_pct: Number(recommendation.recommended_discount_pct),
-    campaign_copy: recommendation.campaign_copy as CampaignCopy,
+    campaign_copy: recommendation.campaign_copy as Partial<CampaignCopy>,
   }
   const emailsSent = await sendTierEmails(supabase, recommendation.scan_id, [tieredProduct])
 

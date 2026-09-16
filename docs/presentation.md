@@ -79,7 +79,8 @@ redemptions. Keep the `Synthetic data` badge visible.
 
 ### AI 2: Gemini — Language
 
-- What: translates fixed model evidence into a manager explanation and campaign copy.
+- What: translates fixed model evidence into a manager explanation, campaign copy,
+  and a product-specific recipe idea.
 - Why: explanation and communication are language tasks. Gemini never calculates or
   changes the selected price.
 
@@ -145,7 +146,7 @@ Proven in the current codebase:
 
 - Unit tests cover forecast fallback/history behavior, XGBoost candidate integration,
   Gemini structured output/fallback, markdown guardrails, CSV validation, and dates.
-- `npm test` passes 18 tests across six files as checked on 2026-09-15.
+- `npm test` passes 20 tests across seven files as checked on 2026-09-16.
 - `npm run typecheck` passes as checked on 2026-09-15.
 - The demo labels synthetic data and non-incremental campaign sales.
 

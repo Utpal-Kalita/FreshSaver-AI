@@ -124,7 +124,7 @@ Claims discipline:
 
 Checked on 2026-09-14:
 
-- [x] `npm test` passes: 6 files, 18 tests.
+- [x] `npm test` passes: 7 files, 20 tests.
 - [x] `npm run typecheck` passes.
 - [x] Forecast unit tests cover history and sparse fallback modes.
 - [x] Recommender unit tests cover expiry, hold, candidate selection, sparse
