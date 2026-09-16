@@ -63,19 +63,35 @@ are not claimed as incremental sales or measured business impact.
 Speaker note: Approve Organic whole milk, show the matched count, then simulate two
 redemptions. Keep the `Synthetic data` badge visible.
 
-## Slide 5: Hybrid AI, Constrained By Policy
+## Slide 5: Two AIs. Two Jobs. One Controlled Decision.
 
-Primary model: trained XGBoost sell-through regression served through FastAPI.
+### AI 1: XGBoost — Prediction
 
-- Predicts low, expected, and high sales for each eligible candidate price.
-- Returns clearance probability and per-prediction XGBoost feature contributions.
-- Optimizer enforces expiry, minimum price, manager override, and discount bounds.
-- Candidate objective uses contribution margin and expected disposal cost when supplied.
-- Deterministic velocity and elasticity remain a labeled availability fallback.
-- Gemini receives only fixed model evidence and generates structured explanation and campaign copy.
+- What: predicts low, expected, and high sell-through for every candidate price.
+- Why: stock, price, expiry, category and sales velocity form a nonlinear tabular
+  prediction problem, which is where gradient-boosted trees are strong.
 
-Speaker note: Gemini cannot alter prices or safety controls. Synthetic model results
-demonstrate behavior, not real-world lift.
+### Deterministic Optimizer — Not AI
+
+- What: selects the strongest eligible contribution score.
+- Why: price floors, expiry blocks, manual overrides and discount bounds must be
+  deterministic and testable.
+
+### AI 2: Gemini — Language
+
+- What: translates fixed model evidence into a manager explanation and campaign copy.
+- Why: explanation and communication are language tasks. Gemini never calculates or
+  changes the selected price.
+
+### Store Owner — Human Authority
+
+- What: approves or rejects the pending recommendation.
+- Why: pricing accountability remains with the merchant.
+
+Speaker note: Say the role split explicitly: XGBoost predicts, policy constrains,
+Gemini communicates, and the owner decides. XGBoost is live; Gemini is optional and
+uses a safe template fallback when unavailable. Synthetic model results demonstrate
+behavior, not real-world lift.
 
 ## Slide 6: Every Recommendation Leaves Evidence
 

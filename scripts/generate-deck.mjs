@@ -315,29 +315,38 @@ function hyperlinkText(slide, label, url, x, y, w, h, options = {}) {
 // Slide 5 — AI architecture
 {
   const slide = pptx.addSlide('DARK')
-  kicker(slide, 'Hybrid AI architecture', true)
-  title(slide, 'Use AI for uncertainty. Use policy for control.', 'Prediction, optimization, generation, and human review are intentionally separated.', true)
+  kicker(slide, 'What AI we use — and why', true)
+  title(slide, 'Two AIs. Two jobs. One controlled decision.', 'XGBoost handles numerical uncertainty. Gemini handles language. Neither gets unchecked authority.', true)
   const layers = [
-    { x: 0.68, tag: 'MODEL', heading: 'XGBoost', body: 'Predicts low / expected / high sell-through for each candidate price.', color: C.violet, fill: '281E43' },
-    { x: 3.78, tag: 'POLICY', heading: 'Optimizer', body: 'Maximizes expected contribution under price floors and expiry rules.', color: C.orange, fill: '4B2C1D' },
-    { x: 6.88, tag: 'LANGUAGE', heading: 'Gemini adapter', body: 'Turns fixed evidence into manager rationale and campaign copy.', color: C.green, fill: '193E33' },
-    { x: 9.98, tag: 'CONTROL', heading: 'Owner approval', body: 'Publishes the price and activates opted-in shoppers.', color: C.lime, fill: '284A3F' },
+    { x: 0.68, tag: 'AI #1 · PREDICTION', heading: 'XGBoost', what: 'Predicts sell-through at every candidate price.', why: 'Built for nonlinear tabular data: stock, price, expiry and sales velocity.', color: C.violet, fill: '281E43' },
+    { x: 3.78, tag: 'NOT AI · POLICY', heading: 'Optimizer', what: 'Selects the strongest eligible contribution score.', why: 'Keeps price floors, expiry blocks and overrides deterministic.', color: C.orange, fill: '4B2C1D' },
+    { x: 6.88, tag: 'AI #2 · LANGUAGE', heading: 'Gemini', what: 'Explains fixed evidence and writes campaign copy.', why: 'Natural language is its strength; it never calculates the price.', color: C.green, fill: '193E33' },
+    { x: 9.98, tag: 'HUMAN · AUTHORITY', heading: 'Store owner', what: 'Approves or rejects the pending recommendation.', why: 'Pricing accountability remains with the merchant.', color: C.lime, fill: '284A3F' },
   ]
   layers.forEach((item, i) => {
-    rect(slide, item.x, 2.4, 2.58, 2.85, item.fill, 0.24, '45685D')
-    circle(slide, item.x + 0.24, 2.7, 0.48, item.color, `${i + 1}`, i === 3 ? C.forest : C.white, 13)
-    text(slide, item.tag, item.x + 0.84, 2.76, 1.28, 0.2, { fontSize: 8, bold: true, color: item.color, charSpacing: 1.2 })
-    text(slide, item.heading, item.x + 0.24, 3.42, 2.08, 0.4, { fontFace: DISPLAY, fontSize: 21, bold: true, color: C.white })
-    text(slide, item.body, item.x + 0.24, 4.0, 2.08, 0.82, { fontSize: 11.5, color: 'BBD0C8', valign: 'top' })
+    rect(slide, item.x, 2.3, 2.58, 3.18, item.fill, 0.24, '45685D')
+    circle(slide, item.x + 0.22, 2.57, 0.46, item.color, `${i + 1}`, i === 3 ? C.forest : C.white, 12)
+    text(slide, item.tag, item.x + 0.79, 2.62, 1.55, 0.2, { fontSize: 7.5, bold: true, color: item.color, charSpacing: 0.75 })
+    text(slide, item.heading, item.x + 0.22, 3.18, 2.1, 0.38, { fontFace: DISPLAY, fontSize: 20, bold: true, color: C.white })
+    text(slide, 'WHAT', item.x + 0.22, 3.75, 0.52, 0.18, { fontSize: 7.5, bold: true, color: item.color, charSpacing: 1 })
+    text(slide, item.what, item.x + 0.22, 3.98, 2.1, 0.48, { fontSize: 10.2, bold: true, color: C.white, valign: 'top' })
+    text(slide, 'WHY', item.x + 0.22, 4.62, 0.52, 0.18, { fontSize: 7.5, bold: true, color: item.color, charSpacing: 1 })
+    text(slide, item.why, item.x + 0.22, 4.84, 2.1, 0.48, { fontSize: 9.4, color: 'BBD0C8', valign: 'top' })
     if (i < layers.length - 1) arrow(slide, item.x + 2.7, 3.63, C.lime)
   })
-  rect(slide, 1.2, 5.75, 10.92, 0.58, '244E42', 0.16)
-  text(slide, 'GEMINI CANNOT', 1.48, 5.93, 1.18, 0.18, { fontSize: 8.5, bold: true, color: C.lime, charSpacing: 1 })
-  text(slide, 'change price  •  change expiry  •  override guardrails  •  consume customer identity', 2.75, 5.87, 8.85, 0.3, { fontSize: 11, bold: true, color: C.white })
-  pill(slide, 'LIVE: XGBOOST', 0.7, 6.6, 1.25, C.violet, C.white)
-  pill(slide, 'SAFE FALLBACK: TEMPLATE', 2.12, 6.6, 2.15, '385E52', 'D6E5DF')
+  rect(slide, 1.18, 5.77, 10.95, 0.62, '244E42', 0.16)
+  text(slide, 'XGBOOST PREDICTS', 1.43, 5.97, 1.58, 0.18, { fontSize: 8.2, bold: true, color: C.violet, charSpacing: 0.7 })
+  text(slide, '→', 3.02, 5.9, 0.35, 0.3, { fontSize: 17, bold: true, color: C.lime, align: 'center' })
+  text(slide, 'POLICY CONSTRAINS', 3.43, 5.97, 1.58, 0.18, { fontSize: 8.2, bold: true, color: C.orange, charSpacing: 0.7 })
+  text(slide, '→', 5.05, 5.9, 0.35, 0.3, { fontSize: 17, bold: true, color: C.lime, align: 'center' })
+  text(slide, 'GEMINI COMMUNICATES', 5.45, 5.97, 1.9, 0.18, { fontSize: 8.2, bold: true, color: C.green, charSpacing: 0.7 })
+  text(slide, '→', 7.43, 5.9, 0.35, 0.3, { fontSize: 17, bold: true, color: C.lime, align: 'center' })
+  text(slide, 'OWNER DECIDES', 7.88, 5.97, 1.5, 0.18, { fontSize: 8.2, bold: true, color: C.lime, charSpacing: 0.7 })
+  pill(slide, 'LIVE PRIMARY AI: XGBOOST', 0.7, 6.6, 1.82, C.violet, C.white)
+  pill(slide, 'OPTIONAL GEN AI: GEMINI', 2.7, 6.6, 1.82, C.green, C.white)
+  pill(slide, 'SAFE FALLBACK: TEMPLATE', 4.7, 6.6, 2.02, '385E52', 'D6E5DF')
   footer(slide, 'Technical implementation', true)
-  note(slide, 'Lead with XGBoost as the live primary AI. Gemini is an evidence-grounded adapter with a safe template fallback; it never calculates prices.')
+  note(slide, 'Say this explicitly: We use XGBoost because pricing demand is a nonlinear tabular prediction problem. We use Gemini because explanations and campaigns are language tasks. The optimizer is not AI; it is deterministic policy that enforces business and safety rules. The owner remains the final authority. XGBoost is live. Gemini is optional and has a template fallback.')
 }
 
 // Slide 6 — Model evidence
