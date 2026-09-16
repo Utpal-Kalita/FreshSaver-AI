@@ -23,8 +23,7 @@ export function DemoLoginButton({ role }: { role: 'owner' | 'customer' }) {
       })
       const body = await response.json()
       if (!response.ok) throw new Error(body.error ?? 'Demo login is unavailable')
-      router.push(body.redirectTo)
-      router.refresh()
+      router.replace(body.redirectTo)
     } catch (demoError) {
       setError(demoError instanceof Error ? demoError.message : 'Demo login is unavailable')
     } finally {

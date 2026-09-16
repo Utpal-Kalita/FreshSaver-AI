@@ -34,8 +34,7 @@ export default function StoreOwnerLoginPage() {
         setError(signInError.message)
         return
       }
-      router.push(data.user?.email === SUPER_ADMIN_EMAIL ? '/admin/dashboard' : '/dashboard')
-      router.refresh()
+      router.replace(data.user?.email === SUPER_ADMIN_EMAIL ? '/admin/dashboard' : '/dashboard')
     } catch (loginError: unknown) {
       setError(loginError instanceof Error ? loginError.message : 'An unexpected error occurred')
     } finally {
